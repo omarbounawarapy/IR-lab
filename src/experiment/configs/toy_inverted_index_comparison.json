@@ -1,0 +1,36 @@
+{
+  "meta": { 
+    
+    "id": "toy_inverted_index_comparison",
+    "description": "A comparison of two toy inverted indexes for testing purposes."
+  },
+
+  "collection": {
+    "id": "toy",
+    "query_set": "keywords"
+  },
+
+  "indexes": [
+    {
+      "type": "inverted_index",
+      "analysis_pipeline": [
+        "lowercase",
+        "tokenize_whitespace"
+      ]
+    },
+    {
+      "type": "inverted_index",
+      "analysis_pipeline": [
+        "lowercase",
+        "tokenize_whitespace",
+        "remove_stopwords"
+      ]
+    }
+  ],
+
+  "evaluation": {
+    "metrics": [
+      "binary_correctness"
+    ]
+  }
+}

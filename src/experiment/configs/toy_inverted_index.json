@@ -1,0 +1,28 @@
+{
+  "meta": { 
+    
+    "id": "toy_inverted_index_benchmark",
+    "description": "A benchmark of a toy inverted index for testing purposes."
+  },
+
+  "collection": {
+    "id": "toy",
+    "query_set": "keywords"
+  },
+
+  "indexes": [
+    {
+      "type": "inverted_index",
+      "analysis_pipeline": [
+        "lowercase",
+        "tokenize_whitespace"
+      ]
+    }
+  ],
+
+  "evaluation": {
+    "metrics": [
+      "binary_correctness"
+    ]
+  }
+}
