@@ -79,3 +79,4 @@ The structure is expected to evolve as more components are implemented.
 This repository is a learning project. While correctness and software quality are important goals, the primary objective is to deepen understanding of Information Retrieval through implementation and experimentation.
 
 As the project grows, earlier implementations may be refactored or replaced to reflect improved understanding or better architectural decisions.
+# information-retrieval-lab
