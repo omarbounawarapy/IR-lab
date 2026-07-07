@@ -21,6 +21,7 @@ The codebase is organized around a small set of Python modules:
 - src/processing: processing pipeline components
 - src/processing/analyzing: analysis and linguistic processing modules
 - src/processing/querry_transformers: query transformation steps
+- src/retrieval: retriever implementations and retrieval abstractions
 
 ## Project Structure
 
@@ -37,12 +38,13 @@ The codebase is organized around a small set of Python modules:
 
 ## Recent Changes
 
-The repository has recently been reorganized to make the core components more explicit:
+The repository has recently evolved around a more explicit boolean-retrieval workflow:
 
 - separated query abstractions from executable query implementations
-- introduced a lightweight base index abstraction
-- moved text processing responsibilities into dedicated analysis and transformer modules
-- removed older scaffolding pieces that were no longer part of the active structure
+- introduced boolean RPN query and transformer support for representing and converting boolean expressions
+- wired binary retrieval around query-specific parsers and evaluators
+- added a retrieval abstraction layer and refreshed the toy inverted-index experiment configuration to exercise the new transformer path
+- removed older retriever scaffolding that was superseded by the current layout
 
 ## Design Philosophy
 
@@ -57,10 +59,10 @@ The project favors:
 The repository currently contains:
 
 - document and dataset model abstractions
-- query and executable-query representations
-- a simple index base class
+- query and executable-query representations, including boolean AST and boolean RPN variants
+- a simple index base class and inverted-index experiment configuration
 - linguistic pipeline and query transformation components
-- a foundation for future retrieval and evaluation work
+- a foundation for binary retrieval and future evaluation work
 
 ## Roadmap
 
