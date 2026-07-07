@@ -1,3 +1,12 @@
+<p align="center">
+  <img src="./assets/banner.png" width="100%">
+</p>
+
+<h1 align="center">IR Lab</h1>
+
+<p align="center">
+  Experimental Information Retrieval Systems & Algorithms
+</p>
 # Information Retrieval Lab
 
 This repository is an educational and experimental lab for studying information retrieval concepts through small, modular Python implementations. The current focus is on building reusable abstractions for documents, queries, indexes, and text-processing pipelines rather than shipping a complete production retrieval system.
