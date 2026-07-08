@@ -1,14 +1,16 @@
 import re
 
+
 tokenizers ={
-    "whitespace": lambda **kwargs: whitespace,
+    "whitespace": lambda text: tokenize_whitespace(text),
     "regex": lambda **kwargs: lambda text: regex(text, **kwargs)
 }
 normalizers = {
-    "lowercase": lambda **kwargs: lowercase,
-    "remove_punctuation": lambda **kwargs: remove_punctuation}
+    "lowercase": lambda text: lowercase(text),
+    "remove_punctuation": lambda text: remove_punctuation(text)
+}
 
-def whitespace(text):
+def tokenize_whitespace(text):
     return text.split()
 def regex(text, pattern=r'\w+'):
     return re.findall(pattern, text)
