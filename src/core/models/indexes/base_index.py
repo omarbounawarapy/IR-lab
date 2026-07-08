@@ -2,6 +2,10 @@ class BaseIndex:
     def __init__(self):
         self.documents = {}
 
+
+
+    
+
     def add_document(self, document):
         self.documents[document.doc_id] = document
 

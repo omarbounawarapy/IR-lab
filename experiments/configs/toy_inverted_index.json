@@ -5,7 +5,7 @@
     "description": "A benchmark of a toy inverted index for testing purposes."
   },
 
-  "collection": {
+  "dataset": {
     "id": "toy",
     "query_set": "keywords"
   },
