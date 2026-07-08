@@ -8,7 +8,7 @@
   Experimental Information Retrieval Systems & Algorithms
 </p>
 
-This repository is an educational and experimental lab for studying information retrieval concepts through small, modular Python implementations. The current focus is on building reusable abstractions for documents, queries, indexes, and text-processing pipelines rather than shipping a complete production retrieval system.
+This repository is an educational and experimental lab for studying information retrieval concepts through small, modular Python implementations. The current focus is on building reusable abstractions for datasets, experiments, documents, queries, indexes, and text-processing pipelines rather than shipping a complete production retrieval system.
 
 ## Purpose
 
@@ -16,43 +16,37 @@ The project is intended for learning and prototyping:
 
 - core IR abstractions such as documents, datasets, queries, and retrievers
 - index and query-processing components that can be tested independently
-- simple retrieval experiments and future evaluation hooks
+- experiment scaffolding for defining datasets and running retrieval experiments
 
 ## Current Architecture
 
 The codebase is organized around a small set of Python modules:
 
-- src/core/models: shared data models and retrieval abstractions
-- src/core/models/querries: query abstractions
-- src/core/models/excutable_querries: executable query implementations such as boolean AST queries
-- src/core/models/indexes: index abstractions and storage structures
-- src/processing: processing pipeline components
-- src/processing/analyzing: analysis and linguistic processing modules
-- src/processing/querry_transformers: query transformation steps
-- src/retrieval: retriever implementations and retrieval abstractions
+- src/core/models: shared data models, dataset abstractions, and experiment definitions
+- src/loaders: dataset loading utilities and storage adapters
+- src/processing: processing pipeline components and query transformation modules
+- experiments/: experiment configurations and run entry points
 
 ## Project Structure
 
 ```text
 .
-├── datasets/                  # corpora and sample datasets
-├── docs/                      # notes and technical write-ups
-├── scripts/                   # dataset download helpers
+├── experiments/               # experiment configurations and runner assets
 ├── src/                       # implementation modules
-│   ├── core/models/           # document, query, index, and retriever abstractions
+│   ├── core/models/           # document, query, index, dataset, and experiment abstractions
+│   ├── loaders/               # dataset loading helpers
 │   └── processing/            # linguistic and query transformation pipelines
 └── README.md
 ```
 
 ## Recent Changes
 
-The repository has recently evolved around a more explicit boolean-retrieval workflow:
+The repository has recently evolved around a more explicit experiment workflow:
 
-- separated query abstractions from executable query implementations
-- introduced boolean RPN query and transformer support for representing and converting boolean expressions
-- wired binary retrieval around query-specific parsers and evaluators
-- added a retrieval abstraction layer and refreshed the toy inverted-index experiment configuration to exercise the new transformer path
-- removed older retriever scaffolding that was superseded by the current layout
+- introduced dataset abstractions including Dataset, DatasetConfig, and DatasetStore
+- added experiment runner and experiment model scaffolding for organizing retrieval runs
+- moved experiment-related assets under a dedicated experiments/ directory
+- removed older toy adapter, toy reader, and legacy toy experiment configuration files that are no longer part of the current layout
 
 ## Design Philosophy
 
@@ -67,10 +61,9 @@ The project favors:
 The repository currently contains:
 
 - document and dataset model abstractions
+- experiment model and runner scaffolding
 - query and executable-query representations, including boolean AST and boolean RPN variants
-- a simple index base class and inverted-index experiment configuration
-- linguistic pipeline and query transformation components
-- a foundation for binary retrieval and future evaluation work
+- basic loader utilities and a foundation for future evaluation work
 
 ## Roadmap
 
