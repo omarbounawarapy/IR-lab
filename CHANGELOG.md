@@ -12,4 +12,4 @@
 - Reorganized the experiment-related layout around loader utilities and core model abstractions.
 
 ### Removed
-- Legacy toy adapter, toy reader, and toy inverted-index experiment configuration files that are no longer used by the current structure.
+- Legacy toy adapter, toy reader, and toy inverted-index experiment configuration files that are no longer used by the current structure
