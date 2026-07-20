@@ -1,6 +1,5 @@
 {
   "meta": { 
-    
     "id": "toy_inverted_index_benchmark",
     "description": "A benchmark of a toy inverted index for testing purposes."
   },
@@ -13,10 +12,13 @@
   "indexes": [
     {
       "type": "inverted_index",
-      "analysis_pipeline": [
-        "lowercase",
-        "tokenize_whitespace"
-      ]
+      "analysis_pipeline": {
+        "character_filters": [],
+        "tokenizer": "tokenize_whitespace",
+        "token_filters": [
+          "lowercase"
+        ]
+      }
     }
   ],
 
