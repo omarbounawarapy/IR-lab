@@ -3,15 +3,17 @@
 ## Unreleased
 
 ### Added
-- Dataset abstractions for configuration and storage, including Dataset, DatasetConfig, and DatasetStore.
-- Initial experiment runner and experiment model scaffolding under src/core.
-- A dedicated experiments/ directory for experiment-related assets and configuration.
-- Exported `AnalyzedDocument` from `src/models/documents/__init__.py` for cleaner document model imports.
+- Component-builder utilities in src/ir_lab/core for composing retrieval components from declarative configuration.
+- Analyzer abstractions and analysis-result types under src/ir_lab/analyzing, including tokenizer/filter pipelines and document/query analyzers.
+- Structured model packages for documents, queries, executable queries, datasets, experiments, and tokens.
+- Indexing and retrieval scaffolding, including indexer abstractions and parser/retriever interfaces.
+- An evaluation package skeleton for future metrics and benchmarking work.
 
 ### Changed
-- Refreshed the project documentation to reflect the new dataset and experiment workflow.
-- Reorganized the experiment-related layout around loader utilities and core model abstractions.
-- Updated README to include analyzed document support in the current state summary.
+- Reworked the project around a more explicit IR pipeline architecture with separate packages for analysis, indexing, ingestion, retrieval, and evaluation.
+- Moved analysis-related functionality out of the older processing-oriented layout and into the current analyzing package.
+- Refreshed the README to describe the current architecture and the evolution from earlier toy-oriented versions.
+- Updated the package layout to better reflect the experiment-driven, modular structure used by the current codebase.
 
 ### Removed
-- Legacy toy adapter, toy reader, and toy inverted-index experiment configuration files that are no longer used by the current structure
+- Older toy-oriented processing assumptions and legacy experiment placeholders that no longer match the current structure.

@@ -8,69 +8,79 @@
   Experimental Information Retrieval Systems & Algorithms
 </p>
 
-This repository is an educational and experimental lab for studying information retrieval concepts through small, modular Python implementations. The current focus is on building reusable abstractions for datasets, experiments, documents, queries, indexes, and text-processing pipelines rather than shipping a complete production retrieval system.
+IR Lab is an educational and experimental Python package for studying information retrieval concepts through modular implementations. Compared with earlier toy-oriented versions, the current codebase is organized around a more explicit IR-style pipeline with separate packages for ingestion, analysis, indexing, retrieval, evaluation, and experiments.
 
 ## Purpose
 
 The project is intended for learning and prototyping:
 
 - core IR abstractions such as documents, datasets, queries, and retrievers
+- reusable text-analysis components such as tokenizers, filters, and analyzers
 - index and query-processing components that can be tested independently
-- experiment scaffolding for defining datasets and running retrieval experiments
+- experiment scaffolding for defining datasets and composing retrieval pipelines
 
 ## Current Architecture
 
-The codebase is organized around a small set of Python modules:
+The source tree is now organized into a small set of Python packages under src/ir_lab:
 
-- src/core/models: shared data models, dataset abstractions, and experiment definitions
-- src/loaders: dataset loading utilities and storage adapters
-- src/processing: processing pipeline components and query transformation modules
-- experiments/: experiment configurations and run entry points
+- core/: experiment runner and component-builder utilities for composing IR components from configuration
+- analyzing/: tokenizers, filters, analyzers, and analysis-result types
+- indexing/: index abstractions and indexer implementations
+- ingestion/: loader abstractions for bringing documents into the pipeline
+- models/: documents, analyzed documents, queries, executable queries, datasets, experiments, and tokens
+- retrieval/: parsers and retriever scaffolding for query execution
+- evaluation/: evaluation package stubs for future metrics and benchmarking
 
 ## Project Structure
 
 ```text
 .
-├── experiments/               # experiment configurations and runner assets
-├── src/                       # implementation modules
-│   ├── core/models/           # document, query, index, dataset, and experiment abstractions
-│   ├── loaders/               # dataset loading helpers
-│   └── processing/            # linguistic and query transformation pipelines
+├── experiments/               # experiment configuration and runner assets
+├── src/ir_lab/                # implementation modules
+│   ├── analyzing/             # analysis pipeline components
+│   ├── core/                  # experiment runner and component composition helpers
+│   ├── evaluation/            # evaluation scaffolding
+│   ├── indexing/              # index abstractions and indexer implementations
+│   ├── ingestion/             # data-loading abstractions
+│   ├── models/                # document, query, dataset, and experiment models
+│   └── retrieval/             # parsers and retriever interfaces
 └── README.md
 ```
 
-## Recent Changes
+## What the Codebase Includes Today
 
-The repository has recently evolved around a more explicit experiment workflow:
+The repository currently contains:
 
-- introduced dataset abstractions including Dataset, DatasetConfig, and DatasetStore
-- added experiment runner and experiment model scaffolding for organizing retrieval runs
-- moved experiment-related assets under a dedicated experiments/ directory
-- removed older toy adapter, toy reader, and legacy toy experiment configuration files that are no longer part of the current layout
+- document and analyzed-document models
+- query and executable-query representations, including boolean AST and boolean RPN variants
+- analyzer pipelines with character filters, tokenizers, and token filters
+- dataset abstractions such as Dataset, DatasetConfig, and DatasetStore
+- experiment runner and component-builder scaffolding for assembling retrieval components
+- indexing and retrieval skeletons for future implementation work
+
+## How It Differs from Older Versions
+
+The project has moved beyond its earlier toy-style layout:
+
+- older versions focused on simple loaders and placeholder experiment scaffolding
+- the current version reorganizes the package around a more standard IR pipeline structure
+- analysis logic now lives in a dedicated analyzing package instead of the older processing-oriented layout
+- models, indexing, retrieval, and evaluation are separated into clearer abstractions
 
 ## Design Philosophy
 
 The project favors:
 
 - modularity over monolithic implementations
-- extensibility for adding new models and experiments
+- extensibility for adding new models, analyzers, and retrieval components
 - experiment-driven development over premature optimization
-
-## Current State
-
-The repository currently contains:
-
-- document, analyzed-document, and dataset model abstractions
-- experiment model and runner scaffolding
-- query and executable-query representations, including boolean AST and boolean RPN variants
-- basic loader utilities and a foundation for future evaluation work
 
 ## Roadmap
 
 Planned work includes:
 
-- boolean retrieval support
+- boolean retrieval support and query evaluation improvements
 - inverted and positional index extensions
-- TF-IDF and vector-space retrieval
-- BM25 and other ranking models
+- TF-IDF, BM25, and other ranking models
 - evaluation pipelines and benchmark comparisons
+- more complete examples and end-to-end experiments
