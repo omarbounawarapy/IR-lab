@@ -1,6 +1,7 @@
+from models.queries import Query
+from models.excutable_queries import BooleanRPNQuery
 
-
-class BooleanRPNTransformer:
+class BooleanRPNParser:
     def __init__(self):
         self.operators = {
             'AND': 1,
