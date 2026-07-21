@@ -1,4 +1,3 @@
-from information_retrival_lab.src.core.models.excutable_querries.boolean_rpn_querry import BooleanRPNQuery
 
 
 class BooleanRPNTransformer:

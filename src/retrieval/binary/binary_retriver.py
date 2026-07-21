@@ -14,5 +14,15 @@ class BinaryRetriever:
         return parser(query)
         
     
-    def booleanRPNEvaluator(self, query: BooleanRPNQuery) -> BooleanRPNQuery:
-        pass
+    def booleanRPNEvaluator(self, query: BooleanRPNQuery) -> list[Document]:
+        data = query.data 
+        cache = {}
+        solve_stack=[]
+        for argument in data : 
+            if argument in ("AND","OR","NOT"):
+                pass 
+            else : 
+                posting_list = self.index.querry(argument)
+                cache[argument] = posting_list
+                
+
