@@ -18,3 +18,4 @@ class BaseIndex:
 
     def list_documents(self):
         return list(self.documents.values())
+    

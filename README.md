@@ -60,7 +60,7 @@ The project favors:
 
 The repository currently contains:
 
-- document and dataset model abstractions
+- document, analyzed-document, and dataset model abstractions
 - experiment model and runner scaffolding
 - query and executable-query representations, including boolean AST and boolean RPN variants
 - basic loader utilities and a foundation for future evaluation work
