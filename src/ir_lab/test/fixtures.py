@@ -16,3 +16,8 @@ class Fixtures:
             content= "UPPER lower.12347896 ./§§§%"
         )
 
+    @staticmethod
+    def text():
+        return "omar.bounawara.py@gmail.com"
+        
+
