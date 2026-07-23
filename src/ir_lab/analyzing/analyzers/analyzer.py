@@ -1,22 +1,34 @@
 from .analysis_result import AnalysisResult
+from ir_lab.core import ComponentBuilder
 
 class Analyzer:
-    def __init__(self, steps):
-        self.character_filters = steps.get("character_filters",[])
-        self.tokenizer = steps.get("tokenizer",[])
-        self.token_filters= steps.get("token_filters",[])
+    def __init__(self,
+                 charachter_filters,
+                 tokenizer,
+                 token_filters):
+        self.character_filters = charachter_filters
+        self.tokenizer = tokenizer
+        self.token_filters= token_filters
 
         
 
     def analyze(self, text : str) -> AnalysisResult: 
 
         for filter in self.character_filters:
-            text = filter.apply(text)
+            text = filter(text)
 
-        tokens = self.tokenizer.tokenize(text)
+        tokens = self.tokenizer(text)
 
-        for filter in self.token_filters:
-            tokens = filter.apply(tokens)
+        analyzed=[]
+        for token in tokens:
+          for step in self.token_filters:
+            token = step(token)
+            if token is None:
+                 break
+             
+          if token is not None:
+             analyzed.append(token)
 
-        results = AnalysisResult(tokens)
+
+        results = AnalysisResult(analyzed)
         return results

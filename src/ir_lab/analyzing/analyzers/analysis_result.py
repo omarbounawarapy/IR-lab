@@ -1,3 +1,3 @@
 @dataclass
 class AnalysisResult:
-    tokens: list[Token]
+    tokens: Iterable[Token]
