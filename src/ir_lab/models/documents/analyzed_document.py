@@ -1,5 +1,5 @@
 from .document import Document
-from models import Token
+from ir_lab.models.tokens import Token
 
 class AnalyzedDocument:
     def __init__(self,document : Document, tokens : list[Token]):

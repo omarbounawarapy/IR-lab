@@ -1,3 +1,4 @@
-class BooleanASTQuery(ExecutableQuerry):
-    def __init__(self, ast: ASTNode):
+from .executable_query import ExecutableQuery
+class BooleanASTQuery(ExecutableQuery):
+    def __init__(self, ast: str):
         self.ast = ast
