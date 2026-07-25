@@ -1,4 +1,4 @@
-from .registery import tokenizers, normalizers
+from registery import *
 from models.documents import Document,AnalyzedDocument
 
 """
@@ -20,3 +20,16 @@ class Linguistic_Pipeline:
             tokens = step_cls(**meta)(content)
             analyzed_document = AnalyzedDocument(document,tokens)
         return analyzed_document
+
+
+if __name__ == "__main__" : 
+    p = Linguistic_Pipeline(
+        ("lowercase",()),
+        ("whitespace",()),
+    )
+    d = Document(
+        doc_id="test_doc",
+        content="apple pie is delicious",
+    )
+    ad = p.process(d) 
+    print(ad)
