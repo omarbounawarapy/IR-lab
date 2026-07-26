@@ -7,7 +7,7 @@ class Fixtures:
     def document():
         return documents.Document(
             id="doc1",
-            text="Hello, WORLD! This is a test-document. NLP's preprocessing isn't easy: version 2.0."
+            content="Hello, WORLD! This is a test-document. NLP's preprocessing isn't easy: version 2.0."
         )
 
     @staticmethod

@@ -31,10 +31,11 @@ class AnalyzerBuilder():
             config["character_filters"],
             CHARACTER_FILTERS,
         )
-
+    
+        print(TOKENIZERS)
         tokenizer = ComponentBuilder.build(
-            [config["tokenizer"]],
-            TOKENIZERS,
+            [config["tokenizer"][0]],
+            TOKENIZERS
         )[0]
 
         token_filters = ComponentBuilder.build(
