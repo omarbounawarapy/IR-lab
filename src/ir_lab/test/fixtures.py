@@ -13,7 +13,7 @@ class Fixtures:
     @staticmethod
     def token():
         return tokens.Token(
-            content= "UPPER lower.12347896 ./§§§%"
+            content= "UPPER lower.12347896 ./§%"
         )
 
     @staticmethod
@@ -21,3 +21,23 @@ class Fixtures:
         return "Hello, WORLD! This is a test-document. NLP's preprocessing isn't easy: version 2.0."
         
 
+    @staticmethod
+    def analyzer_config():
+        return {
+            "character_filters" :[
+                {
+                    'type' : "ponctuation",
+                    'replace' : " "
+                }
+            ],
+            "tokenizer" : [
+                {
+                    "type" : "space"
+                }
+            ],
+            "token_filters" : [
+                {
+                    "type" : "lowercase"
+                }
+            ]
+        }
