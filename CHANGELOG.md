@@ -4,7 +4,7 @@
 
 ### Added
 - Component-builder utilities in src/ir_lab/core for composing retrieval components from declarative configuration.
-- Analyzer abstractions and analysis-result types under src/ir_lab/analyzing, including tokenizer/filter pipelines and document/query analyzers.
+- Fully working analysis pipeline 
 - Structured model packages for documents, queries, executable queries, datasets, experiments, and tokens.
 - Indexing and retrieval scaffolding, including indexer abstractions and parser/retriever interfaces.
 - An evaluation package skeleton for future metrics and benchmarking work.
