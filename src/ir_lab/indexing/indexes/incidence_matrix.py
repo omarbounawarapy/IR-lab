@@ -14,6 +14,20 @@ class IncidenceMatrix(BaseIndex):
         row = self.vocabulary[term]
         self.matrix[row][doc_id] = 1
 
+    def sort_vocabulary(self):
+        sorted_terms = sorted(self.vocabulary)
+        
+        new_vocabulary = {}
+        new_matrix = []
+        
+        for new_row, term in enumerate(sorted_terms):
+            old_row = self.vocabulary[term]
+            new_vocabulary[term] = new_row
+            new_matrix.append(self.matrix[old_row])
+        
+        self.vocabulary = new_vocabulary
+        self.matrix = new_matrix
+
     def __repr__(self):
         return (
             f"IncidenceMatrix("
