@@ -1,5 +1,4 @@
 from .analysis_result import AnalysisResult
-from ir_lab.core import ComponentBuilder
 
 class Analyzer:
     def __init__(self,
@@ -34,6 +33,3 @@ class Analyzer:
         return results
 
 
-if __name__ == '__main__' : 
-    from ir_lab.test import Fixtures
-    text =  Fixtures.text()
