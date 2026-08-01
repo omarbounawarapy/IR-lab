@@ -32,12 +32,13 @@ class Fixtures:
                     AnalyzedDocument(
                         document=Document(
                             id="D1",
-                            content="information retrieval system"
+                            content="information retrieval system information"
                         ),
                         tokens=[
                             Token("information", position=0),
                             Token("retrieval", position=1),
                             Token("system", position=2),
+                            Token("information", position=3)
                         ],
                     ),
                     AnalyzedDocument(

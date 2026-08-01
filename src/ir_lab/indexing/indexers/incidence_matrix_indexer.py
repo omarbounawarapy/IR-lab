@@ -19,9 +19,6 @@ class IncidenceMatrixIndexer:
     
 
 
-    
-    def __call__(self, docs: list[AnalyzedDocument]) -> IncidenceMatrix:
-        return self.index(docs)
 
 
 if __name__ == "__main__" : 

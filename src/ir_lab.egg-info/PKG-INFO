@@ -1,0 +1,7 @@
+Metadata-Version: 2.4
+Name: ir_lab
+Version: 0.1.0
+Summary: Information Retrieval laboratory
+Requires-Python: >=3.12
+License-File: LICENSE
+Dynamic: license-file
