@@ -1,5 +1,6 @@
 from .token_filter import TokenFilter 
 from ir_lab.models.tokens import Token
+from ir_lab.test import Fixtures
 
 class LowerCaseTokenFilter(TokenFilter):
     def apply(self, token):
@@ -9,8 +10,6 @@ class LowerCaseTokenFilter(TokenFilter):
 
 
 if __name__ == "__main__" : 
-    text = "IRLAB"
-    token  = Token(content=text)
+    token  = Fixtures.token()
     cls = LowerCaseTokenFilter()
-    token = cls(token)
-    print(token)
+    print(f"{cls(token)=}")
