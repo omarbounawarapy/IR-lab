@@ -18,6 +18,6 @@ class Fixtures:
 
     @staticmethod
     def text():
-        return "omar.bounawara.py@gmail.com"
+        return "Hello, WORLD! This is a test-document. NLP's preprocessing isn't easy: version 2.0."
         
 
