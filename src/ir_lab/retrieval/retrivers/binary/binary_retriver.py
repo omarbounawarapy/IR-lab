@@ -26,3 +26,7 @@ class BinaryRetriever:
                 cache[argument] = posting_list
                 
 
+
+if __name__ == "main" : 
+    query = "cat OR dog" 
+    
