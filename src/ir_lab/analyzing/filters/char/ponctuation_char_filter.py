@@ -15,9 +15,9 @@ class PonctuationCharFilter(CharFilter):
 
 
 if __name__ == "__main__" : 
-    text = "omar.bounawara.py@gmail.com"
+    from ir_lab.test import Fixtures
+    text = Fixtures.text()
     cls = PonctuationCharFilter(" ")
-    text = cls(text)
-    print(text)
+    print(f"{cls(text)=}")
 
 
