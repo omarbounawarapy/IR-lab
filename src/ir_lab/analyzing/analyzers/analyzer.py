@@ -32,3 +32,8 @@ class Analyzer:
 
         results = AnalysisResult(analyzed)
         return results
+
+
+if __name__ == '__main__' : 
+    from ir_lab.test import Fixtures
+    text =  Fixtures.text()
