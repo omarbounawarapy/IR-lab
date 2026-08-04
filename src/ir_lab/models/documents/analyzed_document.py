@@ -8,3 +8,7 @@ class AnalyzedDocument:
 
     def __str__(self):
         return f"{self.tokens=}"
+
+    
+    def term_set(self):
+        return set([token.content for token in self.tokens])

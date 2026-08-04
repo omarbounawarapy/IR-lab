@@ -5,4 +5,4 @@ class Document:
         self.metadata = metadata if metadata is not None else {}
 
     def __repr__(self):
-        return f"Document(doc_id={self.doc_id}, content={self.content}, metadata={self.metadata})"                                                    
+        return f"Document(doc_id={self.id}, content={self.content}, metadata={self.metadata})"                                                    
