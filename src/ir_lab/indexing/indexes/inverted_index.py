@@ -27,6 +27,17 @@ class InvertedIndex(BaseIndex):
         self.postings = {}
         self.term_info = {}
 
+    def get_postings(self,term):
+        if term not in self.vocabulary:return []
+        else :
+            return self.postings[term]
+
+    def get_term_documents(self,term):
+        postings = self.get_postings(term)
+        docs = [posting.doc_id for posting in postings]
+        return docs
+        
+
     def add_posting(self,term,doc_id,positions):
 
         if not super().in_vocabulary(term):
