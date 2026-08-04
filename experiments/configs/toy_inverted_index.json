@@ -14,7 +14,7 @@
       "type": "inverted_index",
       "analysis_pipeline": {
         "character_filters": [],
-        "tokenizer": "tokenize_whitespace",
+        "tokenizer": "space",
         "token_filters": [
           "lowercase"
         ]

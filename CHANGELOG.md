@@ -9,6 +9,8 @@
 - Indexing and retrieval scaffolding, including indexer abstractions and parser/retriever interfaces.
 - An evaluation package skeleton for future metrics and benchmarking work.
 - fully working incidence matrix
+- fully working positional inverted Index
+
 
 ### Changed
 - Reworked the project around a more explicit IR pipeline architecture with separate packages for analysis, indexing, ingestion, retrieval, and evaluation.
