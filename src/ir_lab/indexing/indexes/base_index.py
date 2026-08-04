@@ -1,10 +1,12 @@
 class BaseIndex:
     def __init__(self):
         self.documents = {}
+        self.vocabulary = {}
 
 
 
-    
+    def in_vocabulary(self,term):
+        return term in self.vocabulary
 
     def add_document(self, document):
         self.documents[document.doc_id] = document

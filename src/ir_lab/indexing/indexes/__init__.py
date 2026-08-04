@@ -1,4 +1,5 @@
 from .base_index import BaseIndex
-__all__ = ["BaseIndex"
-           
-           ]
+from .incidence_matrix import IncidenceMatrix
+__all__ = [
+    "BaseIndex",
+    "IncidenceMatrix"]

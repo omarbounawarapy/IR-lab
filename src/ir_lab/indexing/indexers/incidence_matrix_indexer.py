@@ -1,17 +1,19 @@
-class IncidenceMatrixIndexer:
-    def index(self, docs: list[AnalyzedDocument]):
+from ir_lab.models.documents import AnalyzedDocument
+from ir_lab.indexing.indexes import IncidenceMatrix
 
-        vocabulary = {}
-        matrix = []
+class IncidenceMatrixIndexer:
+    def index(self, docs: list[AnalyzedDocument]) -> IncidenceMatrix:
+    
+        matrix = IncidenceMatrix()
 
         for doc_id, doc in enumerate(docs):
             for token in set(doc.tokens):
+                term = token.content
 
-                if token not in vocabulary:
-                    vocabulary[token] = len(vocabulary)
-                    matrix.append([0] * len(docs))
+                if not matrix.in_vocabulary(term):
+                    matrix.add_term(term)
 
-                row = vocabulary[token]
-                matrix[row][doc_id] = 1
+
+                matrix.set_incidence(term,doc_id)
 
         return matrix
