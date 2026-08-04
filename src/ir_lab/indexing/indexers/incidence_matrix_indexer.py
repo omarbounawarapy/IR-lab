@@ -12,7 +12,14 @@ class IncidenceMatrixIndexer:
                     matrix.add_term(term)
                 matrix.set_incidence(term,doc_id)
 
+        matrix.sort_vocabulary()
+
         return matrix
+
+    
+
+
+    
     def __call__(self, docs: list[AnalyzedDocument]) -> IncidenceMatrix:
         return self.index(docs)
 
