@@ -8,6 +8,7 @@
 - Structured model packages for documents, queries, executable queries, datasets, experiments, and tokens.
 - Indexing and retrieval scaffolding, including indexer abstractions and parser/retriever interfaces.
 - An evaluation package skeleton for future metrics and benchmarking work.
+- fully working incidence matrix
 
 ### Changed
 - Reworked the project around a more explicit IR pipeline architecture with separate packages for analysis, indexing, ingestion, retrieval, and evaluation.
