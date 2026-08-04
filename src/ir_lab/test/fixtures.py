@@ -91,3 +91,55 @@ class Fixtures:
                 }
             ]
         }
+
+
+    @staticmethod
+    def inverted_index() -> InvertedIndex:
+        from ir_lab.indexing.indexes import InvertedIndex
+        index = InvertedIndex()
+
+        index.add_posting(
+            term="information",
+            doc_id="D1",
+            positions=[0, 3],
+        )
+        index.add_posting(
+            term="information",
+            doc_id="D3",
+            positions=[0],
+        )
+
+        index.add_posting(
+            term="model",
+            doc_id="D2",
+            positions=[1],
+        )
+        index.add_posting(
+            term="model",
+            doc_id="D3",
+            positions=[1],
+        )
+
+        index.add_posting(
+            term="retrieval",
+            doc_id="D1",
+            positions=[1],
+        )
+        index.add_posting(
+            term="retrieval",
+            doc_id="D2",
+            positions=[0],
+        )
+        index.add_posting(
+            term="retrieval",
+            doc_id="D3",
+            positions=[2],
+        )
+
+        index.add_posting(
+            term="system",
+            doc_id="D1",
+            positions=[2],
+        )
+
+        return index
