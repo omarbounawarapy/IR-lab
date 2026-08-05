@@ -22,7 +22,7 @@ class InvertedIndex(BaseIndex):
         self.vocabulary: dict[str, int]
         self.postings: dict[int, list[Posting]] 
         self.term_info: dict[int, TermInfo]
-
+        self.n_doc = 0
         self.vocabulary = {}
         self.postings = {}
         self.term_info = {}
@@ -32,15 +32,15 @@ class InvertedIndex(BaseIndex):
         else :
             return self.postings[term]
 
-    def get_term_documents(self,term):
-        postings = self.get_postings(term)
-        docs = [posting.doc_id for posting in postings]
-        return docs
+    def get_term_documents(self, term) -> set[str]:
+
+        return [posting.doc_id for posting in self.get_postings(term)]
         
 
     def add_posting(self,term,doc_id,positions):
-
+        self.n_doc = max(self.n_doc,doc_id+1)
         if not super().in_vocabulary(term):
+            
             self.vocabulary[term] = len(self.vocabulary)
             self.postings[term] = []
             self.term_info[self.vocabulary[term]]= TermInfo(
