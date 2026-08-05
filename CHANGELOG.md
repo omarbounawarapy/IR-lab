@@ -9,7 +9,8 @@
 - Indexing and retrieval scaffolding, including indexer abstractions and parser/retriever interfaces.
 - An evaluation package skeleton for future metrics and benchmarking work.
 - fully working incidence matrix
-- fully working positional inverted Index
+- fully working positional inverted Index   
+- basic operations for binary retriver
 
 
 ### Changed
@@ -20,3 +21,4 @@
 
 ### Removed
 - Older toy-oriented processing assumptions and legacy experiment placeholders that no longer match the current structure.
+- excutable queries structure
