@@ -1,7 +1,7 @@
 class Query:
-    def __init__(self, query_id: str, text: str, metadata: dict = None):
-        self.query_id = query_id
-        self.text = text
+    def __init__(self, id: int, content: str, metadata: dict = None):
+        self.id = id
+        self.content = content
         self.metadata = metadata if metadata is not None else {}
 
     def __repr__(self):

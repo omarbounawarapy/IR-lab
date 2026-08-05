@@ -3,6 +3,14 @@
 class Fixtures:
 
     @staticmethod
+    def query():
+        from ir_lab.models.queries import Query
+        return Query(
+            id = 0,
+            content = "information AND NOT model"
+        )
+
+    @staticmethod
     def document():
         from ir_lab.models import documents
         return documents.Document(
@@ -31,7 +39,7 @@ class Fixtures:
         return [
                     AnalyzedDocument(
                         document=Document(
-                            id="D1",
+                            id=1,
                             content="information retrieval system information"
                         ),
                         tokens=[
@@ -43,7 +51,7 @@ class Fixtures:
                     ),
                     AnalyzedDocument(
                         document=Document(
-                            id="D2",
+                            id=2,
                             content="retrieval model"
                         ),
                         tokens=[
@@ -53,7 +61,7 @@ class Fixtures:
                     ),
                     AnalyzedDocument(
                         document=Document(
-                            id="D3",
+                            id=3,
                             content="information model retrieval"
                         ),
                         tokens=[
@@ -94,51 +102,58 @@ class Fixtures:
 
 
     @staticmethod
-    def inverted_index() -> InvertedIndex:
+
+    def inverted_index() :
         from ir_lab.indexing.indexes import InvertedIndex
         index = InvertedIndex()
 
         index.add_posting(
             term="information",
-            doc_id="D1",
-            positions=[0, 3],
+            doc_id=0,
+            positions=[1],
         )
         index.add_posting(
             term="information",
-            doc_id="D3",
+            doc_id=1,
+            positions=[0, 3],
+        )
+        
+        index.add_posting(
+            term="information",
+            doc_id=3,
             positions=[0],
         )
 
         index.add_posting(
             term="model",
-            doc_id="D2",
+            doc_id=2,
             positions=[1],
         )
         index.add_posting(
             term="model",
-            doc_id="D3",
+            doc_id=3,
             positions=[1],
         )
 
         index.add_posting(
             term="retrieval",
-            doc_id="D1",
+            doc_id=1,
             positions=[1],
         )
         index.add_posting(
             term="retrieval",
-            doc_id="D2",
+            doc_id=2,
             positions=[0],
         )
         index.add_posting(
             term="retrieval",
-            doc_id="D3",
+            doc_id=3,
             positions=[2],
         )
 
         index.add_posting(
             term="system",
-            doc_id="D1",
+            doc_id=1,
             positions=[2],
         )
 
