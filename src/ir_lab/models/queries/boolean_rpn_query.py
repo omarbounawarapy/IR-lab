@@ -1,7 +1,7 @@
+
+from .excutable_query import ExcutableQuery
 from dataclasses import dataclass
-from .query import Query
 
 @dataclass 
-class BooleanRPNQuery:
-    query = Query
-    stack : list[str]
+class BooleanRPNQuery(ExcutableQuery):
+    pass
