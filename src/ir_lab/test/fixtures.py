@@ -90,9 +90,9 @@ class Fixtures:
 
     @staticmethod
     def rpn_stack() :
-            from ir_lab.retrieval.parsing import BooleanRPNParser
+            from ir_lab.retrieval.parsers import BooleanRPNParser
             parser = BooleanRPNParser()
-            query = "information or retrieval"
+            query = "information and retrieval"
             stack = parser(query)
             return stack
     

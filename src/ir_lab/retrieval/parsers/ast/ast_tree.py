@@ -11,6 +11,9 @@ class ASTTree:
     def print_tree(self):
         self.print_node(self.stack[-1])
 
+    def root(self) : 
+        return self.stack[-1]
+
     @staticmethod
     def print_node(node, prefix="", is_last=True):
         connector = "└── " if is_last else "├── "

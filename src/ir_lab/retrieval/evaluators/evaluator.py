@@ -1,20 +1,20 @@
 from ..parsers.ast.nodes import BinaryNode , TermNode , UnaryNode
 from abc import abstractmethod
-from ..parsers.rpn.rpn_stack import RPNStack
 
 class Evaluator:
 
     def __init__(self, retriever):
         self.retriever = retriever 
 
-    def __call__(self, rpn : RPNStack):
+    def __call__(self,tree):
 
-        return self.evaluate(rpn.[-1])
+        return self.evaluate(tree.root())
 
     def evaluate(self, node):
 
         if isinstance(node, TermNode):
-            return self.index.get(node.content)
+            return node.content
+        
 
         if isinstance(node, BinaryNode):
             left = self.evaluate(node.left)
@@ -36,7 +36,6 @@ class Evaluator:
         raise TypeError(f"Unsupported node: {type(node)}")
 
 
-    def
 
     @abstractmethod
     def evaluate_binary(self, operator, left, right):

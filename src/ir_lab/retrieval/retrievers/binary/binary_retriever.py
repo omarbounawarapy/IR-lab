@@ -1,4 +1,5 @@
 from ir_lab.indexing.indexes import InvertedIndex
+from ir_lab.models.tokens import Token
 class BinaryRetriever:
     def __init__(self, index: InvertedIndex):
         self.index = index
@@ -13,6 +14,15 @@ class BinaryRetriever:
     find the intersection list of two doc_id list
     """
     def intersect(self,docs1,docs2):
+        
+        if isinstance(docs1,list) :
+            docs1 =  docs1[0]
+            docs1 = self.index.get_term_documents(docs1.content)
+        if isinstance(docs2,list) :
+            docs2 =  docs2[0]
+            docs2 = self.index.get_term_documents(docs2.content)
+
+
         i,j=0,0
         results=[]
         while i<len(docs1) and j<len(docs2):
