@@ -19,11 +19,9 @@ class DocumentAnalyzer:
 
 if __name__ == "__main__" : 
     from ir_lab.test import Fixtures
-    from .analyzer_builder import AnalyzerBuilder
-    config = Fixtures.analyzer_config()
     document = Fixtures.document()
-    builder = AnalyzerBuilder()
-    analyzer = builder.build(config)
+    analyzer = Fixtures.analyzer()
+    
     doc_analyzer = DocumentAnalyzer(analyzer=analyzer)
     analyzed_doc = doc_analyzer.analyze(document)
     for token in analyzed_doc.tokens:

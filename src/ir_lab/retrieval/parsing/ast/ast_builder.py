@@ -34,13 +34,9 @@ class ASTBuilder:
 if __name__ == "__main__" :
     from ir_lab.test import Fixtures 
   
-    parser = BooleanRPNParser()
-    query = "information or retrieval"
-    stack = parser(query)
-    analyzer = Fixtures.analyzer()
-    q_analyzer = QueryAnalyzer(analyzer)
+    
+    stack = Fixtures.rpn_analyzed_stack
     builder  = ASTBuilder()
-    q_analyzer(stack)
     tree = builder(stack)
     print("original stack = ",stack)
     print("built stack = ",tree.stack)
