@@ -1,10 +1,15 @@
 from ..parsers.ast.nodes import BinaryNode , TermNode , UnaryNode
 from abc import abstractmethod
+from ..parsers.rpn.rpn_stack import RPNStack
 
 class Evaluator:
 
     def __init__(self, retriever):
         self.retriever = retriever 
+
+    def __call__(self, rpn : RPNStack):
+
+        return self.evaluate(rpn.[-1])
 
     def evaluate(self, node):
 
