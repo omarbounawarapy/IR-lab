@@ -37,5 +37,6 @@ if __name__ == "__main__" :
     indexer = InvertedIndexer()
     index = indexer(docs)
     print(index)
+    print("ndocs" , index.n_doc)
     print("information posting"  , index.get_postings("information"))
     print("information documents"  , index.get_term_documents("information"))

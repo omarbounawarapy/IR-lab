@@ -25,6 +25,7 @@ if __name__ == "__main__" :
     analyzer = builder.build(config)
     doc_analyzer = QueryAnalyzer(analyzer=analyzer)
     analyzed_query = doc_analyzer.analyze(query)
+    print(analyzed_query)
     for token in analyzed_query.tokens:
         print(f"{token=}")
 

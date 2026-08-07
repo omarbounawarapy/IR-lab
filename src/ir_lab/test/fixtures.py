@@ -30,8 +30,24 @@ class Fixtures:
     def text():
         return "Hello, WORLD! This is a test-document. NLP's preprocessing isn't easy: version 2.0."
 
+    @staticmethod
+    def analyzed_query():
+        from ir_lab.models.queries import AnalyzedQuery,Query
+        from ir_lab.models.tokens import Token
+        return AnalyzedQuery(
+            query=Query(
+                id = 1,
+                content="information and retrieval"
+            ),
+            tokens=[
+                Token("information", position=0),
+                Token("and", position=1),
+                Token("retrieval", position=2),
+            ],
+            )
     
 
+    @staticmethod
     def analyzed_documents():
         from ir_lab.models.documents import Document
         from ir_lab.models.documents import AnalyzedDocument
