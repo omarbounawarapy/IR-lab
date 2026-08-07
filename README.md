@@ -79,7 +79,7 @@ The project favors:
 
 Planned work includes:
 
-- boolean retrieval support and query evaluation improvements
+- query evaluation improvements
 - TF-IDF, BM25, and other ranking models
 - evaluation pipelines and benchmark comparisons
 - more complete examples and end-to-end experiments
