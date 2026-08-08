@@ -3,16 +3,7 @@ from ir_lab.models.tokens import Token
 class BinaryRetriever:
     def __init__(self, index: InvertedIndex):
         self.index = index
-        """
-        self.querry_parsers={
-            BooleanASTQuery: BooleanASTParser(),
-            BooleanRPNQuery: BooleanRPNParser()
-        }
-        """
 
-    """
-    find the intersection list of two doc_id list
-    """
     def intersect(self,docs1,docs2):
         
         if isinstance(docs1,list) :
@@ -92,25 +83,7 @@ class BinaryRetriever:
         return results
 
     
-    """
-    def retrieve(self, query: ExecutableQuerry ) -> set:
-        parser = self.querry_parsers.get(type(query))
-        if parser is None:
-            raise ValueError(f"No parser found for query type: {type(query)}")
-        return parser(query)
-        
-    
-    def booleanRPNEvaluator(self, query: BooleanRPNQuery) -> list[Document]:
-        data = query.data 
-        cache = {}
-        solve_stack=[]
-        for argument in data : 
-            if argument in ("AND","OR","NOT"):
-                pass 
-            else : 
-                posting_list = self.index.querry(argument)
-                cache[argument] = posting_list
-    """         
+
 
 
 if __name__ == "__main__" : 
