@@ -1,4 +1,4 @@
-from .fragment import Fragment
+from ..fragments.fragment import Fragment
 
 class RPNStack:
     def __init__(self):

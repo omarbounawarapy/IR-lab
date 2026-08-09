@@ -1,5 +1,7 @@
 from .ast_node import ASTNode
+from dataclasses import dataclass
 
+
+@dataclass
 class UnaryNode(ASTNode): 
-    def __init__(self, operand) :
-        self.operand = operand
+    operand : ASTNode

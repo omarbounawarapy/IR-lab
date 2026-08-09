@@ -1,9 +1,8 @@
-from abc import ABC ,abstractmethod
-from .fragment import Fragment
+from ..fragments.fragment import Fragment
 import re
 from .rpn_stack import RPNStack
 
-class RPNParser(ABC) : 
+class RPNParser : 
 
     def parse(self,text : str) -> RPNStack:
         input = self.tokenize(text)
@@ -24,7 +23,10 @@ class RPNParser(ABC) :
 
 
     def precedence(self,operator:str):
-        return self.operators[operator]
+        return self.operators[operator]["precedence"]
+
+    def fragment_class(self,operator:str):
+        return self.operators[operator]["class"]
 
 
     def tokenize(self,query : str) -> list[str] : 
@@ -33,13 +35,13 @@ class RPNParser(ABC) :
         tokens = []
 
         for mo in re.finditer(tok_regex, query):
-            kind = mo.lastgroup
+            type = mo.lastgroup
             value = mo.group()
-            if kind != 'SKIP':
-                tokens.append(Fragment(kind, value))
+            if type != 'SKIP':
+                tokens.append(Fragment(type, value))
         return tokens
 
-    def __call__(self, query : str) -> list[Fragment]:
+    def __call__(self, query : str) -> RPNStack:
         return self.parse(query)
 
 
