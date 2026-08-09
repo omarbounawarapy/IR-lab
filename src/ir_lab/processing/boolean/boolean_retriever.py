@@ -1,6 +1,6 @@
 from ir_lab.indexing.indexes import InvertedIndex
 from ir_lab.models.tokens import Token
-class BinaryRetriever:
+class BooleanRetriever:
     def __init__(self, index: InvertedIndex):
         self.index = index
 

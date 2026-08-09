@@ -1,10 +1,9 @@
-from ...base.evaluator import Evaluator
-from .boolean_retriever import BinaryRetriever
-
+from .boolean_retriever import BooleanRetriever
+from ..base.evaluator import Evaluator
 
 class BooleanEvaluator(Evaluator) : 
 
-        def __init__(self, retriever : BinaryRetriever):
+        def __init__(self, retriever : BooleanRetriever):
              self.retriever = retriever             
              self.operations = {
                  "and": self.retriever.intersect,
@@ -23,7 +22,7 @@ class BooleanEvaluator(Evaluator) :
 
 if __name__ == "__main__" : 
      from ir_lab.test import Fixtures 
-     from ...base.ast.ast_builder import ASTBuilder
+     from ..base.ast.ast_builder import ASTBuilder
 
      builder = ASTBuilder()
      index = Fixtures.inverted_index()
