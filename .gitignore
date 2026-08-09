@@ -15,7 +15,7 @@ dist-ssr
 
 # Editor directories and files
 .vscode/*
-!.vscode/extensions.json
+!.vscode/extensions.jsongit
 .idea
 .DS_Store
 *.suo
@@ -24,6 +24,10 @@ dist-ssr
 *.sln
 *.sw?
 
+#datasets
+datasets
+
 #pycache
 **/__pycache__/
-.ir_lab.egg-info
+*.egg-info/
+src/*.egg-info/
