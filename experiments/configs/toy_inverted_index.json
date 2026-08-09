@@ -11,20 +11,38 @@
 
   "indexes": [
     {
-      "type": "inverted_index",
-      "analysis_pipeline": {
-        "character_filters": [],
-        "tokenizer": "space",
-        "token_filters": [
-          "lowercase"
-        ]
-      }
-    }
+            "character_filters" :[
+                {
+                    "type" : "ponctuation",
+                    "replace" : " "
+                }
+            ],
+            "tokenizer" : [
+                {
+                    "type" : "space"
+                }
+            ],
+            "token_filters" : [
+                {
+                    "type" : "lowercase"
+                }
+            ]
+        }
+
   ],
 
+  
+
+  "retrieval_model": {
+    "type": "boolean"
+  }
+  ,
   "evaluation": {
     "metrics": [
-      "binary_correctness"
+      "binary_correctness",
     ]
   }
 }
+
+
+
