@@ -1,4 +1,4 @@
-from .boolean_rpn_parser import BooleanRPNParser
+from .rpn.boolean_rpn_parser import BooleanRPNParser
 from .query_parser import QueryParser
 __all__ = [
 
