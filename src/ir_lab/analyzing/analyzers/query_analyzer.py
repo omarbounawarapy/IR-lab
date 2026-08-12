@@ -2,6 +2,7 @@ from .analyzer import Analyzer
 from ir_lab.models.queries import AnalyzedQuery,Query
 from ir_lab.models.tokens import Token
 from ir_lab.retrieval.parsing import Fragment
+from ir_lab.retrieval.parsing.rpn.rpn_stack import RPNStack
 
 
 
@@ -10,11 +11,14 @@ class QueryAnalyzer:
     def __init__(self, analyzer : Analyzer):
         self.analyzer = analyzer
 
-    def analyze(self, rpnquery:list[Fragment]):
-        for fragment in rpnquery : 
+    def analyze(self, rpn:RPNStack) -> None:
+        for fragment in rpn : 
             if fragment.type != "OP" : 
               analysis_results = self.analyzer.analyze(fragment.content)
               fragment.content = analysis_results.tokens
+
+    def __call__(self,rpn:RPNStack)->None : 
+        self.analyze(rpn)
 
 if __name__ == "__main__" : 
     from ir_lab.test import Fixtures
@@ -25,8 +29,7 @@ if __name__ == "__main__" :
     analyzer = builder.build(config)
     doc_analyzer = QueryAnalyzer(analyzer=analyzer)
     doc_analyzer.analyze(query)
-    for fragment in query: 
-        print(fragment)
+    print(query)
 
 
     

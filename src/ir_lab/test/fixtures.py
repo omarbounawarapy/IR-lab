@@ -117,8 +117,15 @@ class Fixtures:
         }
 
 
-    @staticmethod
+    @staticmethod 
+    def analyzer():
+        from ir_lab.analyzing.analyzers.analyzer_builder import AnalyzerBuilder
+        config = Fixtures.analyzer_config()
+        builder = AnalyzerBuilder()
+        analyzer = builder.build(config)
+        return analyzer
 
+    @staticmethod
     def inverted_index() :
         from ir_lab.indexing.indexes import InvertedIndex
         index = InvertedIndex()

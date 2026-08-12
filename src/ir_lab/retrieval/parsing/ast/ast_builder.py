@@ -1,15 +1,15 @@
 from .ast_tree import ASTTree
 from .nodes import *
-from ir_lab.retrieval.parsing import Fragment
-from ir_lab.models.tokens import Token
+from ir_lab.retrieval.parsing import RPNStack
+from ..rpn.boolean_rpn_parser import BooleanRPNParser
+from ir_lab.analyzing.analyzers import QueryAnalyzer
 
 class ASTBuilder:
 
-    def __call__(self, rpn: list[Fragment]) -> ASTTree:
+    def __call__(self, rpn : RPNStack) -> ASTTree:
         node_stack = []
 
         for fragment in rpn:
-
             if fragment.type == "TERM":
                 node_stack.append(TermNode(fragment.content))
 
@@ -31,12 +31,16 @@ class ASTBuilder:
     
 
 
-if __name__ == "__main__" : 
-    stack = [Fragment(type='TERM', content=[Token(content='information', position=0, start_offset=None, end_offset=None, payload={})]), 
-             Fragment(type='TERM', content=[Token(content='retrieval', position=0, start_offset=None, end_offset=None, payload={})]),
-             Fragment(type='OP', content='and')]
-    
+if __name__ == "__main__" :
+    from ir_lab.test import Fixtures 
+  
+    parser = BooleanRPNParser()
+    query = "information or retrieval"
+    stack = parser(query)
+    analyzer = Fixtures.analyzer()
+    q_analyzer = QueryAnalyzer(analyzer)
     builder  = ASTBuilder()
+    q_analyzer(stack)
     tree = builder(stack)
     print("original stack = ",stack)
     print("built stack = ",tree.stack)
