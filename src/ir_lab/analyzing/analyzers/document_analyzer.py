@@ -7,7 +7,7 @@ class DocumentAnalyzer:
         self.analyzer = analyzer
 
     def analyze(self, document)-> AnalyzedDocument:
-        analysis_results = self.analyzer.analyze(document.content)
+        analysis_results = self.analyzer.analyze_content(document.content)
         tokens = getattr(analysis_results,"tokens",[])
 
         return AnalyzedDocument(
