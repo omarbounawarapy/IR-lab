@@ -33,7 +33,7 @@ class AnalyzerBuilder():
         )
     
         tokenizer = ComponentBuilder.build(
-            [config["tokenizer"][0]],
+            [config["tokenizer"]],
             TOKENIZERS
         )[0]
 
