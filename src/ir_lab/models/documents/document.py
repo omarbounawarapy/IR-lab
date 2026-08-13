@@ -1,5 +1,5 @@
 class Document:
-    def __init__(self, id: str, content: str, metadata: dict = None):
+    def __init__(self, id: int, content: str, metadata: dict = None):
         self.id = id
         self.content = content
         self.metadata = metadata if metadata is not None else {}
