@@ -40,10 +40,10 @@ The source tree is now organized into a small set of Python packages under src/i
 │   ├── analyzing/             # analysis pipeline components
 │   ├── core/                  # experiment runner and component composition helpers
 │   ├── evaluation/            # evaluation scaffolding
-│   ├── indexing/              # index abstractions and indexer implementations
+│   ├── indexing/              # index classes and indexers
 │   ├── ingestion/             # data-loading abstractions
 │   ├── models/                # document, query, dataset, and experiment models
-│   └── retrieval/             # parsers and retriever interfaces
+│   └── processing/             # parsers and retrievers
 └── README.md
 ```
 
@@ -56,7 +56,7 @@ The repository currently contains:
 - analyzer pipelines with character filters, tokenizers, and token filters
 - dataset abstractions such as Dataset, DatasetConfig, and DatasetStore
 - experiment runner and component-builder scaffolding for assembling retrieval components
-- indexing and retrieval skeletons for future implementation work
+- indexing and retrieval classes for boolean retrieval
 
 ## How It Differs from Older Versions
 
