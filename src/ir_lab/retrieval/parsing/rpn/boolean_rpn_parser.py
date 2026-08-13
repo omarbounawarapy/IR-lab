@@ -15,24 +15,11 @@ class BooleanRPNParser(RPNParser):
 
 
 
-
-
-        
-
-
-
 if __name__ == "__main__":
     
 
     text = "information.retrieval and cookies"
     parser = BooleanRPNParser()
     print(parser(text))
-
-    """        
-    analyzed_query = Fixtures.analyzed_query()
-    parser =  BooleanRPNParser()
-    rpn_query = parser(analyzed_query)
-    print(rpn_query.stack)
-    """
 
     

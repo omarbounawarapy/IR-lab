@@ -88,8 +88,22 @@ class Fixtures:
                     ),
                 ]
 
+    @staticmethod
+    def rpn_stack() :
+            from ir_lab.retrieval.parsing import BooleanRPNParser
+            parser = BooleanRPNParser()
+            query = "information or retrieval"
+            stack = parser(query)
+            return stack
     
-
+    @staticmethod
+    def rpn_analyzed_stack() :
+        from ir_lab.analyzing.analyzers import QueryAnalyzer
+        stack = Fixtures.rpn_stack()
+        analyzer = Fixtures.analyzer()
+        q_analyzer = QueryAnalyzer(analyzer)
+        q_analyzer(stack)
+        return stack
 
 
 

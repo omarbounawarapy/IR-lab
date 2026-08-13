@@ -1,7 +1,4 @@
 from .analyzer import Analyzer
-from ir_lab.models.queries import AnalyzedQuery,Query
-from ir_lab.models.tokens import Token
-from ir_lab.retrieval.parsing import Fragment
 from ir_lab.retrieval.parsing.rpn.rpn_stack import RPNStack
 
 
@@ -22,13 +19,10 @@ class QueryAnalyzer:
 
 if __name__ == "__main__" : 
     from ir_lab.test import Fixtures
-    from .analyzer_builder import AnalyzerBuilder
-    config = Fixtures.analyzer_config()
-    query = [Fragment(type='TERM', content='information.retrieval'), Fragment(type='TERM', content='cookies'), Fragment(type='OP', content='and')]
-    builder = AnalyzerBuilder()
-    analyzer = builder.build(config)
-    doc_analyzer = QueryAnalyzer(analyzer=analyzer)
-    doc_analyzer.analyze(query)
+    query = Fixtures.rpn_stack()
+    analyzer = Fixtures.analyzer()
+    q_analyzer = QueryAnalyzer(analyzer=analyzer)
+    q_analyzer.analyze(query)
     print(query)
 
 
