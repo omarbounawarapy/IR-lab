@@ -1,5 +1,5 @@
 from .analyzer import Analyzer
-from ir_lab.retrieval.parsing.rpn.rpn_stack import RPNStack
+from ir_lab.retrieval.parsers.rpn.rpn_stack import RPNStack
 
 
 

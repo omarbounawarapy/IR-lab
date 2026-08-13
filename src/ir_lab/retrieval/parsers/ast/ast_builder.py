@@ -1,8 +1,6 @@
 from .ast_tree import ASTTree
 from .nodes import *
-from ir_lab.retrieval.parsing import RPNStack
-from ..rpn.boolean_rpn_parser import BooleanRPNParser
-from ir_lab.analyzing.analyzers import QueryAnalyzer
+from ir_lab.retrieval.parsers.rpn.rpn_stack import RPNStack
 
 class ASTBuilder:
 

@@ -26,13 +26,13 @@ if __name__ == "__main__" :
      from ..parsers.ast.ast_builder import ASTBuilder
 
      builder = ASTBuilder()
-     analyzer = Fixtures.
      index = Fixtures.inverted_index()
      retriever = BinaryRetriever(index)
      evaluator = BooleanEvaluator(retriever)
      analyzed_rpn  = Fixtures.rpn_analyzed_stack()
      ast = builder(analyzed_rpn)
-     
+     results = evaluator(ast)
+     print(results)
 
 
 
