@@ -1,5 +1,5 @@
-from .evaluator import Evaluator
-from ..retrievers.binary.binary_retriever import BinaryRetriever
+from ...base.evaluator import Evaluator
+from .boolean_retriever import BinaryRetriever
 
 
 class BooleanEvaluator(Evaluator) : 
@@ -23,7 +23,7 @@ class BooleanEvaluator(Evaluator) :
 
 if __name__ == "__main__" : 
      from ir_lab.test import Fixtures 
-     from ..parsers.ast.ast_builder import ASTBuilder
+     from ...base.ast.ast_builder import ASTBuilder
 
      builder = ASTBuilder()
      index = Fixtures.inverted_index()
@@ -31,7 +31,7 @@ if __name__ == "__main__" :
      evaluator = BooleanEvaluator(retriever)
      analyzed_rpn  = Fixtures.rpn_analyzed_stack()
      ast = builder(analyzed_rpn)
-     results = evaluator(ast)
+     results = evaluator.evaluate(ast)
      print(results)
 
 

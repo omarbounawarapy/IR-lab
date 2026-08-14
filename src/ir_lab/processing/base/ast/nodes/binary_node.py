@@ -1,7 +1,9 @@
 from .ast_node import ASTNode
+from dataclasses import dataclass
 
+
+@dataclass
 class BinaryNode(ASTNode) : 
-    def __init__(self,op,left,right) : 
-        self.operator = op 
-        self.right = right
-        self.left = left
+        operator : ASTNode 
+        right : ASTNode
+        left : ASTNode

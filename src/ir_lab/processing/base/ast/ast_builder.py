@@ -1,6 +1,7 @@
 from .ast_tree import ASTTree
 from .nodes import *
-from ir_lab.retrieval.parsers.rpn.rpn_stack import RPNStack
+from ..rpn.rpn_stack import RPNStack
+
 
 class ASTBuilder:
 
@@ -33,7 +34,7 @@ if __name__ == "__main__" :
     from ir_lab.test import Fixtures 
   
     
-    stack = Fixtures.rpn_analyzed_stack
+    stack = Fixtures.rpn_analyzed_stack()
     builder  = ASTBuilder()
     tree = builder(stack)
     print("original stack = ",stack)

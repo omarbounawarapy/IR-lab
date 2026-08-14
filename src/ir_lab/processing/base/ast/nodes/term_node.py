@@ -1,5 +1,8 @@
 from .ast_node import ASTNode
+from dataclasses import dataclass
+from ir_lab.models.tokens import Token
 
+
+@dataclass
 class TermNode(ASTNode) : 
-    def __init__(self, content) : 
-        self.content = content
+    content : list[Token]
