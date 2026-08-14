@@ -19,7 +19,7 @@
       "analysis": {
         "character_filters": [
           {
-            "type": "ponctuation",
+            "type": "punctuation",
             "replace": " "
           }
         ],

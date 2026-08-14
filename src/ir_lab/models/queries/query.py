@@ -5,4 +5,4 @@ class Query:
         self.metadata = metadata if metadata is not None else {}
 
     def __repr__(self):
-        return f"Query(query_id={self.id}, text={self.text}, metadata={self.metadata})"
+        return f"Query(query_id={self.id}, text={self.content}, metadata={self.metadata})"
