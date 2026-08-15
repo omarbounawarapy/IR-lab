@@ -1,5 +1,5 @@
-from ..parsers.ast.nodes import BinaryNode , TermNode , UnaryNode
 from abc import abstractmethod
+from .ast.nodes import *
 
 class Evaluator:
 

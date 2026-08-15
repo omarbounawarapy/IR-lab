@@ -26,13 +26,12 @@ class AnalyzerBuilder():
     def __init__(self):
         pass 
 
-    def build(self,config):
+    def build(self,config) -> Analyzer:
         character_filters = ComponentBuilder.build(
             config["character_filters"],
             CHARACTER_FILTERS,
         )
     
-        print(TOKENIZERS)
         tokenizer = ComponentBuilder.build(
             [config["tokenizer"][0]],
             TOKENIZERS
@@ -42,9 +41,12 @@ class AnalyzerBuilder():
             config["token_filters"],
             TOKEN_FILTERS,
         )
+        config = {
+            "token_filters" : token_filters,
+            "tokenizer" : tokenizer,
+            "character_filters" : character_filters
+        }
 
-        return Analyzer(
-            character_filters,
-            tokenizer,
-            token_filters,
-        )
+        return Analyzer(config)
+    def __call__(self,config):
+        self.build(config)

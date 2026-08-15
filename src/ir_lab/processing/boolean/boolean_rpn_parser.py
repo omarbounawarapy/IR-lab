@@ -1,5 +1,5 @@
-from ...base.rpn.rpn_parser import RPNParser
-from ...base.fragments import *
+from ..base.rpn.rpn_parser import RPNParser
+from ..base.fragments import *
 
 class BooleanRPNParser(RPNParser):
     def __init__(self):

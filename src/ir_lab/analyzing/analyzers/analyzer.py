@@ -1,17 +1,15 @@
 from .analysis_result import AnalysisResult
 
 class Analyzer:
-    def __init__(self,
-                 charachter_filters,
-                 tokenizer,
-                 token_filters):
-        self.character_filters = charachter_filters
-        self.tokenizer = tokenizer
-        self.token_filters= token_filters
+    def __init__(self,config):
+
+        self.character_filters = config["character_filters"]
+        self.tokenizer = config["tokenizer"]
+        self.token_filters= config["token_filters"]
 
         
 
-    def analyze(self, text : str) -> AnalysisResult: 
+    def analyze_content(self, text : str) -> AnalysisResult: 
 
         for filter in self.character_filters:
             text = filter(text)
