@@ -1,12 +1,10 @@
 
-from json import loads
+from dataclasses import dataclass
+from ir_lab.models.datasets import Dataset
+from .run import Run
 
-class expirement : 
-    def __init__(self,file_path):
-        self.config = loads(open(file_path, "r"))
-
-
-    def  load_config(self,config) : 
-        self.runs = {
-            
-        }
+@dataclass
+class expirement :
+    dataset : Dataset
+    runs : list[Run]
+    #evaluation : list[dict] : kept away for now
