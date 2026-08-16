@@ -1,48 +1,47 @@
 {
-  "meta": { 
+  "meta": {
     "id": "toy_inverted_index_benchmark",
     "description": "A benchmark of a toy inverted index for testing purposes."
   },
-
   "dataset": {
     "id": "toy",
     "query_set": "keywords"
   },
-
-  "indexes": [
+  "runs": [
     {
-            "character_filters" :[
-                {
-                    "type" : "ponctuation",
-                    "replace" : " "
-                }
-            ],
-            "tokenizer" : [
-                {
-                    "type" : "space"
-                }
-            ],
-            "token_filters" : [
-                {
-                    "type" : "lowercase"
-                }
-            ]
-        }
-
+      "id": "example",
+      "index": {
+        "physical_type": "positional_index",
+        "structure": "skip_list",
+        "ordering": "docid_sorted",
+        "dictionary_type": "hash_table"
+      },
+      "analysis": {
+        "character_filters": [
+          {
+            "type": "ponctuation",
+            "replace": " "
+          }
+        ],
+        "tokenizer": {
+          "type": "space"
+        },
+        "token_filters": [
+          {
+            "type": "lowercase"
+          }
+        ]
+      },
+      "retrieval": {
+        "type": "boolean"
+      }
+    }
   ],
-
-  
-
-  "retrieval_model": {
-    "type": "boolean"
-  }
-  ,
   "evaluation": {
     "metrics": [
-      "binary_correctness",
+      "precision",
+      "recall",
+      "f1"
     ]
   }
 }
-
-
-
