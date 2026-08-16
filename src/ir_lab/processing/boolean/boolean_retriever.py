@@ -89,7 +89,7 @@ class BooleanRetriever:
 if __name__ == "__main__" : 
     from ir_lab.test import Fixtures
     index = Fixtures.inverted_index()
-    retriver = BinaryRetriever(index)
+    retriver = BooleanRetriever(index)
     docs1 = index.get_term_documents("information")
     docs2 = index.get_term_documents("model")
     print(f"{retriver.index=}")
