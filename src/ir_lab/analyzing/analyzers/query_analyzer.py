@@ -20,9 +20,9 @@ class QueryAnalyzer:
 if __name__ == "__main__" : 
     from ir_lab.test import Fixtures
     builder = AnalyzerBuilder()
-    config = Fixtures.analyzer_config()
     query = Fixtures.rpn_stack()
-    q_analyzer = builder(config)
+    analyzer = Fixtures.analyzer()
+    q_analyzer = QueryAnalyzer(analyzer)
     q_analyzer.analyze(query)
     print(query)
 
