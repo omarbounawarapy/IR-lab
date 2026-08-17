@@ -1,7 +1,9 @@
 from ir_lab.models.documents import AnalyzedDocument
 from ir_lab.indexing.indexes import IncidenceMatrix
+from .base_indexer import BaseIndexer
 
-class IncidenceMatrixIndexer:
+class IncidenceMatrixIndexer(BaseIndexer):
+
     def index(self, docs: list[AnalyzedDocument]) -> IncidenceMatrix:
         
         matrix = IncidenceMatrix(size=len(docs))
