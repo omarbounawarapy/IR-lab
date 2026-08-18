@@ -104,11 +104,11 @@ class Fixtures:
                     'replace' : " "
                 }
             ],
-            "tokenizer" : [
+            "tokenizer" : 
                 {
                     "type" : "space"
                 }
-            ],
+            ,
             "token_filters" : [
                 {
                     "type" : "lowercase"
