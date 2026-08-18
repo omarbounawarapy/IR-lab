@@ -19,8 +19,8 @@ class ASTBuilder:
                 node_stack.append(
                     BinaryNode(
                         fragment.content,
-                        left,
                         right,
+                        left,
                     )
                 )
 
