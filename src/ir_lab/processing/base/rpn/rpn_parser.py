@@ -13,7 +13,7 @@ class RPNParser :
             if term not in self.operators:
                 rpn.push(fragment)
             else:
-                while holding_stack and holding_stack[-1].content != '(' and self.precedence(holding_stack[-1].content) >= self.precdence(term):
+                while holding_stack and holding_stack[-1].content != '(' and self.precedence(holding_stack[-1].content) >= self.precedence(term):
                     rpn.push(holding_stack.pop())
                 holding_stack.append(fragment)
         while holding_stack:
