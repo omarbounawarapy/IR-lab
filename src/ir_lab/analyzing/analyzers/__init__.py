@@ -4,8 +4,8 @@ from .document_analyzer import DocumentAnalyzer
 from .query_analyzer import QueryAnalyzer
 
 __all__ = [
-    AnalyzerBuilder,
-    Analyzer,
-    DocumentAnalyzer,
-    QueryAnalyzer
+    "AnalyzerBuilder",
+    "Analyzer",
+    "DocumentAnalyzer",
+    "QueryAnalyzer"
 ]
