@@ -14,20 +14,35 @@
     "num_queries": 112,
     "ok": true,
     "performance": {
-      "cold_total_s": 2.0393737429985777,
-      "indexing_only_s": 1.2230566419984825,
-      "process_elapsed_s": 3.04,
-      "process_peak_rss_kb": 152632,
-      "warm_retrieval_s": 0.8163171010000951
+      "cold_total_s": 2.0010259370010317,
+      "indexing_only_s": 1.2173619670011249,
+      "process_elapsed_s": 3.03,
+      "process_peak_rss_kb": 152444,
+      "warm_retrieval_s": 0.7836639699999068
     },
     "run_config_id": "tfidf_cisi"
   },
   {
     "config": "cisi_boolean.json",
-    "error_message": "list index out of range",
-    "error_type": "IndexError",
-    "ok": false,
-    "process_elapsed_s": 0.97,
-    "process_peak_rss_kb": 122380
+    "dataset_id": "cisi",
+    "effectiveness": {
+      "f1": 0.04215888302256487,
+      "map": 0.015301399920735134,
+      "mrr": 0.14477223651683582,
+      "ndcg@10": 0.06370519749453851,
+      "precision": 0.06151353262024502,
+      "recall": 0.1182764701189795
+    },
+    "num_documents_retrieved_total": 28363,
+    "num_queries": 112,
+    "ok": true,
+    "performance": {
+      "cold_total_s": 1.1758087759990303,
+      "indexing_only_s": 1.0399290039986226,
+      "process_elapsed_s": 1.48,
+      "process_peak_rss_kb": 131828,
+      "warm_retrieval_s": 0.13587977200040768
+    },
+    "run_config_id": "boolean_cisi"
   }
 ]

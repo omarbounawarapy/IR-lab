@@ -15,6 +15,12 @@ class BooleanEvaluator(BaseEvaluator) :
              }
 
         def evaluate_term(self, tokens):
+            # A term made entirely of characters the analyzer discards (e.g. a
+            # lone punctuation mark once punctuation filtering applies) analyzes
+            # to zero tokens. Same convention as an unknown vocabulary term
+            # (InvertedIndex.get_postings): matches no documents, not a crash.
+            if not tokens:
+                return []
             term = tokens[0].content
             return self.retriever.term_documents(term)
 
