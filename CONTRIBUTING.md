@@ -1,8 +1,11 @@
 # Contributing to IR Lab
 
-IR Lab is a small, from-scratch IR framework. Contributions that fit its scope --
-new retrieval models, analysis components, evaluation metrics, or dataset loaders --
-are welcome.
+IR Lab is a small, currently solo-maintained project (more people may join to work
+on specific parts over time). Contributions that fit its scope -- new retrieval
+models, analysis components, evaluation metrics, or dataset loaders -- are welcome.
+
+By participating, you're expected to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+For security issues, see [SECURITY.md](SECURITY.md) instead of opening a public issue.
 
 ## Getting set up
 
