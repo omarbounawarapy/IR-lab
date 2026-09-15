@@ -10,12 +10,19 @@ from ir_lab.models.relevance import Qrel
 
 def relevant_documents(qrels: list[Qrel], query_id, threshold: int = 1) -> set:
     """The set of document ids judged relevant (relevance >= threshold)
-    for a given query, from a flat list of Qrel judgments."""
+    for a given query, from a flat list of Qrel judgments.
+
+    A judgment with no explicit "relevance" field (e.g. CISI's qrels,
+    which only record query/document pairs) is treated as relevant --
+    for collections like that, appearing in the qrels at all *is* the
+    judgment. A judgment that does carry a relevance field is scored
+    against it, so an explicit 0 is still correctly excluded.
+    """
     return {
         qrel.document_id
         for qrel in qrels
         if qrel.query_id == query_id
-        and (qrel.metadata or {}).get("relevance", 0) >= threshold
+        and (qrel.metadata or {}).get("relevance", 1) >= threshold
     }
 
 

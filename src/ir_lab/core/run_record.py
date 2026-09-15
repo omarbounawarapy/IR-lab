@@ -13,6 +13,7 @@ def build_run_record(
     run_results: list,
     seed=None,
     evaluation=None,
+    ranked_evaluation=None,
 ) -> dict:
     """A self-contained, structurally-linked record of one executed run:
     its own config, the code version that produced it, and its results
@@ -30,4 +31,5 @@ def build_run_record(
         "queries": [query.id for query in queries],
         "retrieved": [[doc.id for doc in docs] for docs in run_results],
         "evaluation": evaluation,
+        "ranked_evaluation": ranked_evaluation,
     }

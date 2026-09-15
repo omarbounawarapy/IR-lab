@@ -3,6 +3,7 @@ from ir_lab.indexing.indexers.indexer_builder import IndexerBuilder
 from ir_lab.analyzing.analyzers import AnalyzerBuilder, DocumentAnalyzer
 from ir_lab.processing.processor_builder import ProcessorBuilder
 from ir_lab.evaluation.metrics import evaluate_run
+from ir_lab.evaluation.rank_metrics import evaluate_ranked_run
 from ir_lab.errors import ConfigError
 from ir_lab.reproducibility import set_global_seed, DEFAULT_SEED
 from .run import Run
@@ -116,8 +117,10 @@ class ExpirimentRunner:
 
             if self.run_store is not None:
                 evaluation = None
+                ranked_evaluation = None
                 if expirement.dataset.qrels:
                     evaluation = evaluate_run(expirement.dataset.queries, run_results, expirement.dataset.qrels)
+                    ranked_evaluation = evaluate_ranked_run(expirement.dataset.queries, run_results, expirement.dataset.qrels)
 
                 record = build_run_record(
                     experiment_id=expirement.id,
@@ -128,6 +131,7 @@ class ExpirimentRunner:
                     run_results=run_results,
                     seed=expirement.seed,
                     evaluation=evaluation,
+                    ranked_evaluation=ranked_evaluation,
                 )
                 self.run_store.save(record)
 
