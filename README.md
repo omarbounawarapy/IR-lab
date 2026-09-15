@@ -139,8 +139,9 @@ oranges.
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Changes are tracked in
-[CHANGELOG.md](CHANGELOG.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md) and the [Code of Conduct](CODE_OF_CONDUCT.md).
+Changes are tracked in [CHANGELOG.md](CHANGELOG.md). Found a security issue? See
+[SECURITY.md](SECURITY.md).
 
 ## License
 
