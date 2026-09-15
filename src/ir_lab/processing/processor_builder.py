@@ -30,6 +30,7 @@ def _build_tfidf(config: dict, analyzer, index: BaseIndex) -> TFIDFProcessor:
         query_analyzer=QueryAnalyzer(analyzer),
         retriever=TFIDFRetriever(index),
         mapper=TFIDFResultsMapper(),
+        top_k=config.get("top_k"),
     )
 
 

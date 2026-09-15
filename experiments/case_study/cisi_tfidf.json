@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "cisi_black_box_case_study",
-    "description": "Black-box run of the framework's TF-IDF retrieval model over the full CISI collection, used to measure both effectiveness and runtime/memory as a case study."
+    "description": "Black-box run of the framework's TF-IDF retrieval model over the full CISI collection, used to measure both effectiveness and runtime/memory as a case study. top_k=10 caps the retrieved set so precision/recall/F1 reflect a ranked top-10 result page instead of nearly the whole 1,460-document collection."
   },
   "dataset": {
     "id": "cisi"
@@ -22,7 +22,8 @@
         ]
       },
       "retrieval": {
-        "type": "tfidf"
+        "type": "tfidf",
+        "top_k": 10
       }
     }
   ]

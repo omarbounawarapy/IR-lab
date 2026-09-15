@@ -40,30 +40,58 @@ python3 scripts/run_case_study.py
 
 ## Results
 
-### TF-IDF over CISI (`cisi_tfidf.json`) -- succeeded
+### TF-IDF over CISI (`cisi_tfidf.json`) -- fixed the precision problem
 
-| Effectiveness | Value |
-|---|---|
-| Precision | 0.0198 |
-| Recall | 0.6701 |
-| F1 | 0.0374 |
-| MAP | 0.0819 |
-| MRR | 0.2613 |
-| nDCG@10 | 0.1533 |
+Originally, TF-IDF's precision was ~0.02 despite recall of ~0.67:
+`TFIDFRetriever.score()` returns a score for every document sharing *any*
+query term with the query, and nothing truncated that list before it
+became the "retrieved" set. For a natural-language query with common
+terms, that was most of the 1,460-document collection (~1,441 of 1,460 per
+query). Precision/recall/F1 are only informative for a ranked model once
+a cutoff is introduced -- an unbounded "retrieved set" isn't what those
+metrics were designed to score.
+
+**Fix:** added an optional `top_k` field to the `retrieval` config,
+threaded through `ProcessorBuilder` into `TFIDFProcessor`, which now
+truncates the ranked results to the top `top_k` before mapping/evaluation
+when set (`None`/omitted keeps the old unbounded behavior, so existing
+configs -- including the capstone experiment -- are unaffected). This
+case study's config now sets `"top_k": 10`, matching the `nDCG@10` metric
+already in use.
+
+| Effectiveness | Before (unbounded) | After (`top_k=10`) |
+|---|---|---|
+| Precision | 0.0198 | **0.1473** |
+| Recall | 0.6701 | 0.0566 |
+| F1 | 0.0374 | **0.0654** |
+| MAP | 0.0819 | 0.0280 |
+| MRR | 0.2613 | 0.2573 |
+| nDCG@10 | 0.1533 | 0.1533 |
+
+Precision and F1 improve by capping the result list to a realistic page
+size; recall and MAP drop because MAP is now MAP@10 -- a relevant document
+ranked below position 10 no longer counts, where previously it could still
+be found deep in the (near-complete) ranked list. `nDCG@10`/`MRR` are
+essentially unchanged since they were already rank-@10-bounded or
+rank-first-hit-bounded and unaffected by cutting off the long unranked
+tail. This is the expected precision/recall trade-off of adding a cutoff,
+not a regression.
 
 | Performance | Value |
 |---|---|
-| Process wall time (`/usr/bin/time`, cold+warm+startup) | 3.04 s |
-| Peak RSS | 152,632 KB (~149 MB) |
-| Cold run (index build + retrieve, 112 queries) | 2.04 s |
-| &nbsp;&nbsp;of which index build | 1.22 s |
-| Warm run (retrieve only, 112 queries, index cached) | 0.82 s |
-| Retrieved docs total / avg per query | 161,484 / ~1,441 |
+| Process wall time (`/usr/bin/time`, cold+warm+startup) | 1.84 s |
+| Peak RSS | 128,476 KB (~125 MB) |
+| Cold run (index build + retrieve, 112 queries) | 1.21 s |
+| &nbsp;&nbsp;of which index build | 0.70 s |
+| Warm run (retrieve only, 112 queries, index cached) | 0.50 s |
+| Retrieved docs total / avg per query | 1,120 / 10 |
 
-These effectiveness numbers match `experiments/capstone/comparison.json`'s
-`metrics_a`/`ranked_metrics_a` exactly, which is an independent
-cross-check: two different driver scripts, calling the framework the same
-black-box way, reproduce identical numbers on the same config.
+The unbounded-config numbers above still match
+`experiments/capstone/comparison.json`'s `metrics_a`/`ranked_metrics_a`
+exactly (capstone's config has no `top_k`, so its behavior and result are
+unchanged by this fix) -- an independent cross-check that two different
+driver scripts, calling the framework the same black-box way, reproduce
+identical numbers on the same config.
 
 ### Boolean over CISI (`cisi_boolean.json`) -- fixed, now succeeds
 
@@ -125,18 +153,16 @@ analyzer and index.
 
 ## Findings
 
-1. **TF-IDF has no top-k cutoff.** `TFIDFRetriever.score()` returns a score
-   for every document sharing *any* query term with the query, and nothing
-   truncates that list before it becomes the "retrieved" set. For a natural-
-   language query with common terms, that is most of the 1,460-document
-   collection (~1,441 of 1,460 per query here). This is why precision is
-   ~0.02 despite recall of 0.67: precision/recall/F1 are only informative
-   here for a ranked model once a cutoff (top-k) is introduced; MAP/MRR/
-   nDCG@10 are the metrics that actually reflect ranking quality for this
-   retrieval model as configured today.
-2. **Boolean's query language silently drops unconnected terms** -- see the
-   caveat above; not fixed in this pass.
-3. **Cost profile:** for a 1,460-document, 112-query collection, both
+1. **TF-IDF had no top-k cutoff -- fixed.** See the TF-IDF section above;
+   `retrieval.top_k` is now an optional config field, off by default.
+2. **Boolean retrieval crashed on CISI's queries -- fixed.** See the
+   Boolean section above; punctuation-only terms now match zero documents
+   instead of raising `IndexError`.
+3. **Boolean's query language silently drops unconnected terms** -- see the
+   caveat in the Boolean section; not fixed in this pass, since it's a
+   query-language semantics gap rather than an unhandled-input crash or a
+   missing evaluation control.
+4. **Cost profile:** for a 1,460-document, 112-query collection, both
    models fit comfortably under ~150 MB peak RSS and ~3 seconds of wall
    time single-threaded (import + dataset load + index build + retrieve +
    evaluate included), with index construction dominating -- roughly
