@@ -1,0 +1,104 @@
+{
+  "dataset": {
+    "id": "toy_boolean",
+    "name": "Toy Boolean Retrieval Dataset"
+  },
+
+  "documents": [
+    {
+      "doc_id": 1,
+      "title": "Inverted Index",
+      "text": "An inverted index maps terms to documents using posting lists."
+    },
+    {
+      "doc_id": 2,
+      "title": "Boolean Retrieval",
+      "text": "Boolean retrieval uses AND, OR, and NOT operators to search documents."
+    },
+    {
+      "doc_id": 3,
+      "title": "Vector Space Model",
+      "text": "The vector space model represents documents and queries as vectors."
+    },
+    {
+      "doc_id": 4,
+      "title": "Search Engines",
+      "text": "Search engines crawl documents and build indexes for retrieval."
+    },
+    {
+      "doc_id": 5,
+      "title": "Posting Lists",
+      "text": "Posting lists contain document identifiers for terms in an index."
+    },
+    {
+      "doc_id": 6,
+      "title": "Machine Learning",
+      "text": "Machine learning models can rank documents by relevance."
+    }
+  ],
+
+  "queries": [
+    {
+      "query_id": 1,
+      "text": "index and posting"
+    },
+    {
+      "query_id": 2,
+      "text": "boolean or vector"
+    },
+    {
+      "query_id": 3,
+      "text": "retrieval and vector"
+    }
+  ],
+
+  "qrels": [
+    {
+      "query_id": 1,
+      "doc_id": 1,
+      "relevance": 1
+    },
+    {
+      "query_id": 1,
+      "doc_id": 1,
+      "relevance": 1
+    },
+    {
+      "query_id": 1,
+      "doc_id": 4,
+      "relevance": 0
+    },
+
+    {
+      "query_id": 2,
+      "doc_id": 2,
+      "relevance": 1
+    },
+    {
+      "query_id": 2,
+      "doc_id": 3,
+      "relevance": 1
+    },
+    {
+      "query_id": 2,
+      "doc_id": 1,
+      "relevance": 0
+    },
+
+    {
+      "query_id": 3,
+      "doc_id": 2,
+      "relevance": 1
+    },
+    {
+      "query_id": 3,
+      "doc_id": 4,
+      "relevance": 1
+    },
+    {
+      "query_id": 3,
+      "doc_id": 3,
+      "relevance": 0
+    }
+  ]
+}
