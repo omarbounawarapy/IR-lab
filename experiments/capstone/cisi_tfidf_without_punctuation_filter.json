@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "id": "cisi_punctuation_ablation",
+    "description": "Does disabling punctuation filtering change TF-IDF effectiveness on CISI? -- punctuation filter OFF."
+  },
+  "dataset": {
+    "id": "cisi"
+  },
+  "runs": [
+    {
+      "id": "without_punctuation_filter",
+      "index": {
+        "structure": "inverted"
+      },
+      "analysis": {
+        "character_filters": [],
+        "tokenizer": {"type": "space"},
+        "token_filters": [
+          {"type": "lowercase"}
+        ]
+      },
+      "retrieval": {
+        "type": "tfidf"
+      }
+    }
+  ]
+}
