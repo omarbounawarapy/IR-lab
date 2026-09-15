@@ -92,7 +92,21 @@ python3 scripts/run_capstone.py
 See [`experiments/capstone/README.md`](experiments/capstone/README.md) for the full
 write-up, methodology, and result (t = 1.542, df = 111, p = 0.126 -- not significant).
 
-### 4. Compare two runs programmatically
+### 4. Reproduce the black-box case study (effectiveness + runtime + memory)
+
+A black-box test of TF-IDF and Boolean retrieval on CISI, driven entirely through the
+framework's public API and measuring runtime and peak memory per run, not just
+effectiveness:
+
+```bash
+python3 scripts/run_case_study.py
+```
+
+See [`experiments/case_study/README.md`](experiments/case_study/README.md) for the full
+methodology and results, including two findings surfaced by the test itself: Boolean
+retrieval crashes on CISI's natural-language queries, and TF-IDF has no top-k cutoff.
+
+### 5. Compare two runs programmatically
 
 ```python
 from ir_lab.core.comparison import compare_runs
@@ -108,8 +122,8 @@ oranges.
 
 ```text
 .
-├── experiments/            # declarative experiment configs + the capstone write-up
-├── scripts/                 # dataset download/parse scripts, capstone runner
+├── experiments/            # declarative experiment configs + capstone/case-study write-ups
+├── scripts/                 # dataset download/parse scripts, capstone + case-study runners
 ├── src/ir_lab/
 │   ├── analyzing/            # character filters, tokenizers, token filters, analyzers
 │   ├── core/                 # experiment runner, component builder, run comparison
