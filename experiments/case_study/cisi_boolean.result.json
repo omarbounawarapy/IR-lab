@@ -1,0 +1,7 @@
+{
+  "config_id": "cisi_black_box_case_study",
+  "error_message": "list index out of range",
+  "error_type": "IndexError",
+  "ok": false,
+  "traceback": "Traceback (most recent call last):\n  File \"/home/omar/projects/ir_lab/scripts/case_study_worker.py\", line 54, in main\n    cold_runner(config)\n    ~~~~~~~~~~~^^^^^^^^\n  File \"/home/omar/projects/ir_lab/src/ir_lab/core/expirement_runner.py\", line 143, in __call__\n    return self.run(expirement)\n           ~~~~~~~~^^^^^^^^^^^^\n  File \"/home/omar/projects/ir_lab/src/ir_lab/core/expirement_runner.py\", line 115, in run\n    run_results = processor(expirement.dataset.queries)\n  File \"/home/omar/projects/ir_lab/src/ir_lab/processing/base/base_processor.py\", line 30, in __call__\n    result = self.process(query)\n  File \"/home/omar/projects/ir_lab/src/ir_lab/processing/boolean/boolean_processor.py\", line 25, in process\n    doc_ids = self.evaluator(ast)\n  File \"/home/omar/projects/ir_lab/src/ir_lab/processing/base/base_evaluator.py\", line 11, in __call__\n    return self.evaluate(tree.root())\n           ~~~~~~~~~~~~~^^^^^^^^^^^^^\n  File \"/home/omar/projects/ir_lab/src/ir_lab/processing/base/base_evaluator.py\", line 16, in evaluate\n    return self.evaluate_term(node.content)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^\n  File \"/home/omar/projects/ir_lab/src/ir_lab/processing/boolean/boolean_evaluator.py\", line 18, in evaluate_term\n    term = tokens[0].content\n           ~~~~~~^^^\nIndexError: list index out of range\n"
+}

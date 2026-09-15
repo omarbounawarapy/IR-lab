@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "id": "cisi_black_box_case_study",
+    "description": "Black-box probe of the framework's boolean retrieval model over CISI's natural-language topic queries (no explicit AND/OR/NOT operators)."
+  },
+  "dataset": {
+    "id": "cisi"
+  },
+  "runs": [
+    {
+      "id": "boolean_cisi",
+      "index": {
+        "structure": "inverted"
+      },
+      "analysis": {
+        "character_filters": [
+          {"type": "ponctuation", "replace": " "}
+        ],
+        "tokenizer": {"type": "space"},
+        "token_filters": [
+          {"type": "lowercase"}
+        ]
+      },
+      "retrieval": {
+        "type": "boolean"
+      }
+    }
+  ]
+}
