@@ -37,3 +37,9 @@ src/*.egg-info/
 
 #persisted experiment runs (generated, not source)
 /runs/
+
+#local-only notes, not part of the repo content
+/ir_lab.md
+
+#Claude Code project files
+.claude/
