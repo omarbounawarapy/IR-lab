@@ -16,10 +16,13 @@ class TFIDFProcessor(BaseProcessor):
 
     retriever: TFIDFRetriever
     mapper: TFIDFResultsMapper
+    top_k: int | None = None
 
     def process(self, query: Query) -> list[ScoredDocument]:
         tokens = self.query_analyzer.analyzer.analyze_content(query.content).tokens
         scored_pairs = self.retriever.score([token.content for token in tokens])
+        if self.top_k is not None:
+            scored_pairs = scored_pairs[: self.top_k]
         return self.mapper(scored_pairs)
 
 

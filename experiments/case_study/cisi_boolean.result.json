@@ -1,10 +1,10 @@
 {
-  "cold_total_s": 1.1758087759990303,
+  "cold_total_s": 0.9739526730008947,
   "config_id": "cisi_black_box_case_study",
-  "indexing_only_s": 1.0399290039986226,
+  "indexing_only_s": 0.855417420001686,
   "ok": true,
   "run_record": {
-    "code_version": "9e336120258838fbdaab2d704f817bf9d722980c-dirty",
+    "code_version": "4b7deeb2ae2ca4e77182eabd7da068560945bf57-dirty",
     "config": {
       "analysis": {
         "character_filters": [
@@ -30,7 +30,7 @@
         "type": "boolean"
       }
     },
-    "created_at": "2026-09-15T21:47:18.592384+00:00",
+    "created_at": "2026-09-15T21:52:57.561815+00:00",
     "dataset_id": "cisi",
     "evaluation": [
       {
@@ -1497,8 +1497,8 @@
       }
     ],
     "run_config_id": "boolean_cisi",
-    "run_id": "39bf87d366954b4f8bd8a619cf1d8c92",
+    "run_id": "ace63cf5c1044ffa8b28a5fc35b8265a",
     "seed": null
   },
-  "warm_retrieval_s": 0.13587977200040768
+  "warm_retrieval_s": 0.11853525299920875
 }
