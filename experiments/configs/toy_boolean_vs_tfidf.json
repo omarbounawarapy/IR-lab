@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "id": "toy_boolean_vs_tfidf",
+    "description": "Two runs, identical dataset/analysis/index, differing only in retrieval model -- boolean vs. TF-IDF."
+  },
+  "dataset": {
+    "id": "toy"
+  },
+  "runs": [
+    {
+      "id": "boolean_run",
+      "index": {
+        "structure": "inverted"
+      },
+      "analysis": {
+        "character_filters": [
+          {"type": "ponctuation", "replace": " "}
+        ],
+        "tokenizer": {"type": "space"},
+        "token_filters": [
+          {"type": "lowercase"}
+        ]
+      },
+      "retrieval": {
+        "type": "boolean"
+      }
+    },
+    {
+      "id": "tfidf_run",
+      "index": {
+        "structure": "inverted"
+      },
+      "analysis": {
+        "character_filters": [
+          {"type": "ponctuation", "replace": " "}
+        ],
+        "tokenizer": {"type": "space"},
+        "token_filters": [
+          {"type": "lowercase"}
+        ]
+      },
+      "retrieval": {
+        "type": "tfidf"
+      }
+    }
+  ]
+}

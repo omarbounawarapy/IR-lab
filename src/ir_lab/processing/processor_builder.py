@@ -9,6 +9,10 @@ from .boolean.boolean_retriever import BooleanRetriever
 from .boolean.boolean_evaluator import BooleanEvaluator
 from .boolean.boolean_results_mapper import BooleanResultsMapper
 
+from .tfidf.tfidf_processor import TFIDFProcessor
+from .tfidf.tfidf_retriever import TFIDFRetriever
+from .tfidf.tfidf_results_mapper import TFIDFResultsMapper
+
 
 def _build_boolean(config: dict, analyzer, index: BaseIndex) -> BooleanProcessor:
     retriever = BooleanRetriever(index)
@@ -21,8 +25,17 @@ def _build_boolean(config: dict, analyzer, index: BaseIndex) -> BooleanProcessor
     )
 
 
+def _build_tfidf(config: dict, analyzer, index: BaseIndex) -> TFIDFProcessor:
+    return TFIDFProcessor(
+        query_analyzer=QueryAnalyzer(analyzer),
+        retriever=TFIDFRetriever(index),
+        mapper=TFIDFResultsMapper(),
+    )
+
+
 RETRIEVAL_MODELS = {
     "boolean": _build_boolean,
+    "tfidf": _build_tfidf,
 }
 
 
