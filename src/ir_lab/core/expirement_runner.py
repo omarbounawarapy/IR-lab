@@ -2,11 +2,19 @@ from .expirement import Expirement
 from ir_lab.indexing.indexers.indexer_builder import IndexerBuilder
 from ir_lab.analyzing.analyzers import AnalyzerBuilder, DocumentAnalyzer
 from ir_lab.processing.processor_builder import ProcessorBuilder
+from ir_lab.errors import ConfigError
 from .run import Run
 
 
 import hashlib
 import json
+
+
+def _required(config, key, where):
+    try:
+        return config[key]
+    except KeyError:
+        raise ConfigError(f"{where} is missing required field {key!r}: {config!r}")
 
 
 class ExpirimentRunner:
@@ -20,16 +28,20 @@ class ExpirimentRunner:
 
     def build(self,config : dict) -> Expirement :
         runs = []
-        dataset = self.resolve_dataset(config["dataset"]["id"])
+        dataset_config = _required(config, "dataset", "experiment config")
+        dataset_id = _required(dataset_config, "id", "experiment config 'dataset'")
+        dataset = self.resolve_dataset(dataset_id)
 
-        for run_config in config["runs"] :
-          analyzer_config = run_config["analysis"]
-          index_config = run_config["index"]
+        for run_config in _required(config, "runs", "experiment config") :
+          run_id = _required(run_config, "id", "run config")
+          analyzer_config = _required(run_config, "analysis", f"run {run_id!r} config")
+          index_config = _required(run_config, "index", f"run {run_id!r} config")
+          _required(run_config, "retrieval", f"run {run_id!r} config")
           analyzer = self.resolve_analyzer(analyzer_config)
           index = self.resolve_index(index_config,analyzer_config,dataset)
           indexer = None if index is not None else self.indexer_builder(index_config)
 
-          instance = Run(id = run_config['id'],
+          instance = Run(id = run_id,
                          analyzer = analyzer,
                          processors=[],
                          config=run_config,

@@ -1,5 +1,6 @@
 from .inverted_indexer import InvertedIndexer
 from .incidence_matrix_indexer import IncidenceMatrixIndexer
+from ir_lab.errors import ConfigError
 
 INDEXERS = {
     "inverted": InvertedIndexer,
@@ -11,9 +12,16 @@ class IndexerBuilder:
 
     def build(self, config: dict):
         try:
-            cls = INDEXERS[config["structure"]]
+            structure = config["structure"]
         except KeyError:
-            raise ValueError(f"Unsupported index structure: {config.get('structure')!r}")
+            raise ConfigError(f"index config is missing a 'structure' field: {config!r}")
+
+        try:
+            cls = INDEXERS[structure]
+        except KeyError:
+            raise ConfigError(
+                f"unknown index structure {structure!r}; expected one of {sorted(INDEXERS)}"
+            )
         return cls()
 
     def __call__(self, config: dict):

@@ -1,5 +1,6 @@
 from ir_lab.analyzing.analyzers import QueryAnalyzer
 from ir_lab.indexing.indexes import BaseIndex
+from ir_lab.errors import ConfigError
 
 from .boolean.boolean_processor import BooleanProcessor
 from .boolean.boolean_rpn_parser import BooleanRPNParser
@@ -29,9 +30,17 @@ class ProcessorBuilder:
 
     def build(self, config: dict, analyzer, index: BaseIndex):
         try:
-            factory = RETRIEVAL_MODELS[config["type"]]
+            retrieval_type = config["type"]
         except KeyError:
-            raise ValueError(f"Unsupported retrieval type: {config.get('type')!r}")
+            raise ConfigError(f"retrieval config is missing a 'type' field: {config!r}")
+
+        try:
+            factory = RETRIEVAL_MODELS[retrieval_type]
+        except KeyError:
+            raise ConfigError(
+                f"unknown retrieval type {retrieval_type!r}; "
+                f"expected one of {sorted(RETRIEVAL_MODELS)}"
+            )
         return factory(config, analyzer, index)
 
     def __call__(self, config: dict, analyzer, index: BaseIndex):

@@ -1,5 +1,6 @@
 from .boolean_retriever import BooleanRetriever
 from ..base.base_evaluator import BaseEvaluator
+from ir_lab.errors import UnsupportedFeatureError
 
 class BooleanEvaluator(BaseEvaluator) :
 
@@ -21,7 +22,9 @@ class BooleanEvaluator(BaseEvaluator) :
             try:
                  operation = self.binary_operations[operator]
             except KeyError:
-                raise ValueError(f"Unsupported boolean operator: {operator!r}")
+                raise UnsupportedFeatureError(
+                    f"boolean retrieval does not support the binary operator {operator!r} yet"
+                )
 
             return operation(left, right)
 
@@ -29,7 +32,9 @@ class BooleanEvaluator(BaseEvaluator) :
             try:
                 operation = self.unary_operations[operator]
             except KeyError:
-                raise ValueError(f"Unsupported boolean operator: {operator!r}")
+                raise UnsupportedFeatureError(
+                    f"boolean retrieval does not support the unary operator {operator!r} yet"
+                )
 
             return operation(operand)
 

@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "id": "toy_boolean_no_punctuation_filter",
+    "description": "Same as toy_inverted_index.json but with punctuation filtering disabled -- an experimental-variable variant, not a hardcoded duplicate."
+  },
+  "dataset": {
+    "id": "toy"
+  },
+  "runs": [
+    {
+      "id": "no_punctuation",
+      "index": {
+        "structure": "inverted"
+      },
+      "analysis": {
+        "character_filters": [],
+        "tokenizer": {
+          "type": "space"
+        },
+        "token_filters": [
+          {
+            "type": "lowercase"
+          }
+        ]
+      },
+      "retrieval": {
+        "type": "boolean"
+      }
+    }
+  ]
+}

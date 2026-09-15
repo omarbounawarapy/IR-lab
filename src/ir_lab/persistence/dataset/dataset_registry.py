@@ -1,9 +1,10 @@
-from functools import wraps 
-from json import load
+import json
+from functools import wraps
 from ir_lab.models.documents import Document
 from ir_lab.models.queries import Query
 from ir_lab.models.relevance import Qrel
 from ir_lab.models.datasets import Dataset
+from ir_lab.errors import DataError
 
 class DatasetRegistry:
 
@@ -26,47 +27,70 @@ class DatasetRegistry:
         return cls.loaders[dataset]()
 
     @classmethod
-    def get_loader(cls,dataset : str) -> callable : 
+    def get_loader(cls,dataset : str) -> callable :
         return cls.loaders.get(dataset)
+
+
+def _load_json(path: str):
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except FileNotFoundError:
+        raise DataError(f"dataset file not found: {path!r}")
+    except json.JSONDecodeError as e:
+        raise DataError(f"dataset file {path!r} is not valid JSON: {e}")
+
+
+def _record(constructor, record, path):
+    try:
+        return constructor(record)
+    except KeyError as e:
+        raise DataError(f"{path!r} record is missing field {e}: {record!r}")
 
 
 @DatasetRegistry.register("toy")
 def toy_loader():
-    dataset = load(open("datasets/toy/dataset.json"))
-    docs=  [ Document(
-            id = doc["doc_id"],
-            content = doc["text"],
-            metadata = {
-                "title" : doc["title"],
-            }
-            
+    path = "datasets/toy/dataset.json"
+    dataset = _load_json(path)
+
+    docs = [
+        _record(
+            lambda d: Document(
+                id=d["doc_id"],
+                content=d["text"],
+                metadata={"title": d["title"]},
+            ),
+            doc,
+            path,
         )
-        for doc in dataset['documents']
+        for doc in dataset["documents"]
     ]
     queries = [
-        Query(
-            id = q["query_id"],
-            content = q["text"]
+        _record(
+            lambda q: Query(id=q["query_id"], content=q["text"]),
+            q,
+            path,
         )
         for q in dataset["queries"]
     ]
     qrels = [
-        Qrel(
-            query_id = qr["query_id"],
-            document_id=qr["doc_id"],
-            metadata={
-                "relevance" : qr["relevance"]
-            }
-
+        _record(
+            lambda qr: Qrel(
+                query_id=qr["query_id"],
+                document_id=qr["doc_id"],
+                metadata={"relevance": qr["relevance"]},
+            ),
+            qr,
+            path,
         )
-        for qr in dataset['qrels']
+        for qr in dataset["qrels"]
     ]
 
     return Dataset(
         id="toy",
         corpus=docs,
-        querries= queries,
-        qrels= qrels
+        querries=queries,
+        qrels=qrels,
     )
 
 
@@ -77,39 +101,43 @@ def cisi_loader():
     qrels_path = "datasets/cisi/qrels.json"
 
     docs = [
-        Document(
-            id = doc["id"],
-            content = doc["text"],
-            metadata = {
-                "title" : doc["title"],
-                "authors" : doc["authors"],
-                "references" : doc["references"]
-            }
+        _record(
+            lambda d: Document(
+                id=d["id"],
+                content=d["text"],
+                metadata={
+                    "title": d["title"],
+                    "authors": d["authors"],
+                    "references": d["references"],
+                },
+            ),
+            doc,
+            docs_path,
         )
-        for doc in load(open(docs_path,"r"))
+        for doc in _load_json(docs_path)
     ]
 
     queries = [
-        Query(
-            id =  q["id"],
-            content = q["text"],
+        _record(
+            lambda q: Query(id=q["id"], content=q["text"]),
+            q,
+            queries_path,
         )
-        for q in load(open(queries_path))
+        for q in _load_json(queries_path)
     ]
 
     qrels = [
-            Qrel(
-                query_id =  qr["query_id"],
-                document_id= qr["document_id"]
-            )
-            for qr in load(open(qrels_path))
+        _record(
+            lambda qr: Qrel(query_id=qr["query_id"], document_id=qr["document_id"]),
+            qr,
+            qrels_path,
+        )
+        for qr in _load_json(qrels_path)
     ]
 
     return Dataset(
-        id = "cisi",
-        corpus= docs,
-        querries = queries,
-        qrels = qrels
+        id="cisi",
+        corpus=docs,
+        querries=queries,
+        qrels=qrels,
     )
-
-
