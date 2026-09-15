@@ -1,0 +1,33 @@
+[
+  {
+    "config": "cisi_tfidf.json",
+    "dataset_id": "cisi",
+    "effectiveness": {
+      "f1": 0.03736696839409236,
+      "map": 0.08185591253885627,
+      "mrr": 0.2613477171573921,
+      "ndcg@10": 0.15327692179702262,
+      "precision": 0.01978996079052551,
+      "recall": 0.6700800169804955
+    },
+    "num_documents_retrieved_total": 161484,
+    "num_queries": 112,
+    "ok": true,
+    "performance": {
+      "cold_total_s": 2.0393737429985777,
+      "indexing_only_s": 1.2230566419984825,
+      "process_elapsed_s": 3.04,
+      "process_peak_rss_kb": 152632,
+      "warm_retrieval_s": 0.8163171010000951
+    },
+    "run_config_id": "tfidf_cisi"
+  },
+  {
+    "config": "cisi_boolean.json",
+    "error_message": "list index out of range",
+    "error_type": "IndexError",
+    "ok": false,
+    "process_elapsed_s": 0.97,
+    "process_peak_rss_kb": 122380
+  }
+]

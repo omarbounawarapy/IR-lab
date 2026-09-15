@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "id": "cisi_black_box_case_study",
+    "description": "Black-box run of the framework's TF-IDF retrieval model over the full CISI collection, used to measure both effectiveness and runtime/memory as a case study."
+  },
+  "dataset": {
+    "id": "cisi"
+  },
+  "runs": [
+    {
+      "id": "tfidf_cisi",
+      "index": {
+        "structure": "inverted"
+      },
+      "analysis": {
+        "character_filters": [
+          {"type": "ponctuation", "replace": " "}
+        ],
+        "tokenizer": {"type": "space"},
+        "token_filters": [
+          {"type": "lowercase"}
+        ]
+      },
+      "retrieval": {
+        "type": "tfidf"
+      }
+    }
+  ]
+}
