@@ -103,8 +103,9 @@ python3 scripts/run_case_study.py
 ```
 
 See [`experiments/case_study/README.md`](experiments/case_study/README.md) for the full
-methodology and results, including two findings surfaced by the test itself: Boolean
-retrieval crashes on CISI's natural-language queries, and TF-IDF has no top-k cutoff.
+methodology and results, including two findings surfaced by the test itself and fixed or
+documented in place: an unhandled-input crash in Boolean retrieval (now fixed), and
+TF-IDF's lack of a top-k cutoff.
 
 ### 5. Compare two runs programmatically
 

@@ -65,26 +65,67 @@ These effectiveness numbers match `experiments/capstone/comparison.json`'s
 cross-check: two different driver scripts, calling the framework the same
 black-box way, reproduce identical numbers on the same config.
 
-### Boolean over CISI (`cisi_boolean.json`) -- crashed
+### Boolean over CISI (`cisi_boolean.json`) -- fixed, now succeeds
 
-Running the framework's boolean retrieval model over CISI's topic queries
-raises `IndexError: list index out of range` inside
-`boolean_evaluator.py::evaluate_term`, before any results are produced.
-Full traceback in `cisi_boolean.result.json`.
+Originally, running the framework's boolean retrieval model over CISI's
+topic queries raised `IndexError: list index out of range` inside
+`boolean_evaluator.py::evaluate_term`, before any results were produced.
+
+**Root cause:** `BooleanEvaluator.evaluate_term` assumed every `TERM`
+fragment analyzes to at least one token and read `tokens[0]` unconditionally.
+A term made entirely of characters the analyzer discards (e.g. a lone `?`
+or `...` left isolated by whitespace once punctuation filtering runs)
+analyzes to zero tokens, so `tokens[0]` raised. 24 such empty-token
+fragments occur across CISI's 112 queries.
+
+**Fix (`boolean_evaluator.py`):** `evaluate_term` now returns `[]` -- no
+matching documents -- when a term analyzes to zero tokens, the same
+convention `InvertedIndex.get_postings` already uses for a term that
+isn't in the vocabulary at all. No other file changed; `pytest` (42 tests)
+still passes.
+
+With that fixed, boolean retrieval now runs end to end on CISI:
+
+| Effectiveness | Value |
+|---|---|
+| Precision | 0.0615 |
+| Recall | 0.1183 |
+| F1 | 0.0422 |
+| MAP | 0.0153 |
+| MRR | 0.1448 |
+| nDCG@10 | 0.0637 |
+
+| Performance | Value |
+|---|---|
+| Process wall time (`/usr/bin/time`, cold+warm+startup) | 1.48 s |
+| Peak RSS | 131,828 KB (~129 MB) |
+| Cold run (index build + retrieve, 112 queries) | 1.18 s |
+| &nbsp;&nbsp;of which index build | 1.04 s |
+| Warm run (retrieve only, 112 queries, index cached) | 0.14 s |
+| Retrieved docs total / avg per query | 28,363 / ~253 |
+
+**Caveat -- these numbers should not be read as "boolean retrieval on
+CISI":** the RPN parser only recognizes the literal English words
+`and`/`or`/`not` as operators; every other adjacent pair of terms in a
+natural-language query is left unconnected. `ASTBuilder` builds an AST
+per *connected* run of terms but never combines separate runs -- it just
+leaves each one on its node stack, and `ASTTree.root()` returns only the
+last one pushed. Concretely, for query 1 ("What problems and concerns are
+there in making up descriptive titles? ...") the AST builder ends with 9
+unconnected top-level nodes, and only the last -- `"descriptive" and
+"titles"` -- is ever evaluated; the other 8 terms/subtrees are silently
+dropped, no error or warning. So the boolean numbers above measure "AND of
+whichever two terms happen to trail the last `and`/`or`/`not` in the
+sentence" running successfully, not a faithful boolean interpretation of
+the topic. That silent term-dropping is a distinct, still-open issue from
+the crash fixed above (out of scope for this pass -- it's a query-language
+semantics gap, not an unhandled-input crash) and is why the boolean
+metrics differ so much from TF-IDF's despite the identical dataset,
+analyzer and index.
 
 ## Findings
 
-1. **Boolean retrieval cannot run against CISI's queries.** CISI topics are
-   natural-language questions ("What problems and concerns are there in
-   making up descriptive titles?"), not boolean expressions. The RPN
-   parser accepts a run of unconnected `TERM` tokens, but
-   `BooleanAstBuilder`/`BooleanEvaluator` require every term to be joined by
-   an explicit `and`/`or`/`not` -- a multi-term run with no connecting
-   operator crashes rather than raising a `ConfigError` about the
-   malformed query. Boolean retrieval is currently only exercisable with
-   hand-written boolean-syntax queries, not off-the-shelf IR test
-   collections.
-2. **TF-IDF has no top-k cutoff.** `TFIDFRetriever.score()` returns a score
+1. **TF-IDF has no top-k cutoff.** `TFIDFRetriever.score()` returns a score
    for every document sharing *any* query term with the query, and nothing
    truncates that list before it becomes the "retrieved" set. For a natural-
    language query with common terms, that is most of the 1,460-document
@@ -93,12 +134,14 @@ Full traceback in `cisi_boolean.result.json`.
    here for a ranked model once a cutoff (top-k) is introduced; MAP/MRR/
    nDCG@10 are the metrics that actually reflect ranking quality for this
    retrieval model as configured today.
-3. **Cost profile:** for a 1,460-document, 112-query collection, the whole
-   pipeline (import + dataset load + index build + retrieve + evaluate)
-   fits in ~150 MB peak RSS and ~2 seconds of wall time single-threaded, of
-   which roughly 60% is index construction and 40% is retrieval across all
-   112 queries -- i.e. per-query retrieval is on the order of a few
-   milliseconds once the index exists.
+2. **Boolean's query language silently drops unconnected terms** -- see the
+   caveat above; not fixed in this pass.
+3. **Cost profile:** for a 1,460-document, 112-query collection, both
+   models fit comfortably under ~150 MB peak RSS and ~3 seconds of wall
+   time single-threaded (import + dataset load + index build + retrieve +
+   evaluate included), with index construction dominating -- roughly
+   60-90% of that time -- and per-query retrieval on the order of single-
+   digit milliseconds once the index exists.
 
 ## Files
 
@@ -108,8 +151,8 @@ Full traceback in `cisi_boolean.result.json`.
 - `cisi_tfidf.time.log`, `cisi_boolean.time.log` -- raw `/usr/bin/time -v`
   output per config, regenerated on every run; not committed (matched by
   the repo's `*.log` gitignore rule).
-- `runs/` -- the framework's own persisted run record(s) (`RunStore`),
-  exactly as `run_capstone.py` produces them; only the cold run is
-  persisted (see worker script) to avoid a near-duplicate record for the
-  warm timing pass.
+- `runs/` -- the framework's own persisted run records (`RunStore`), one
+  per config, exactly as `run_capstone.py` produces them; only the cold
+  run is persisted (see worker script) to avoid a near-duplicate record
+  for the warm timing pass.
 - `results.json` -- the aggregated summary consumed above.
