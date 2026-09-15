@@ -15,9 +15,12 @@ class DocumentAnalyzer:
             tokens=tokens,
         )
 
+    def __call__(self, document) -> AnalyzedDocument:
+        return self.analyze(document)
 
 
-if __name__ == "__main__" : 
+
+if __name__ == "__main__" :
     from ir_lab.test import Fixtures
     document = Fixtures.document()
     analyzer = Fixtures.analyzer()

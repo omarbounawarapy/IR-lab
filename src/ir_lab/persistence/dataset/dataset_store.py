@@ -1,16 +1,13 @@
-from .dataset_registry import DatasetRegistery
+from .dataset_registry import DatasetRegistry
 from ir_lab.models.datasets import Dataset
 
-class DatasetStore : 
+class DatasetStore :
 
     def __init__(self):
-        pass 
+        pass
 
-    def load(dataset : str) -> Dataset : 
-        loader = DatasetRegistery.get_loader(dataset) 
+    def load(self, dataset : str) -> Dataset :
+        loader = DatasetRegistry.get_loader(dataset)
+        if loader is None:
+            raise ValueError(f"Unknown dataset: {dataset!r}")
         return loader()
-
-
-    
- 
-    

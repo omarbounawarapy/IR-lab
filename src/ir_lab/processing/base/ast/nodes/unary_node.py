@@ -3,5 +3,6 @@ from dataclasses import dataclass
 
 
 @dataclass
-class UnaryNode(ASTNode): 
+class UnaryNode(ASTNode):
+    operator : str
     operand : ASTNode

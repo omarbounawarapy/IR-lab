@@ -4,22 +4,18 @@
     "description": "A benchmark of a toy inverted index for testing purposes."
   },
   "dataset": {
-    "id": "toy",
-    "query_set": "keywords"
+    "id": "toy"
   },
   "runs": [
     {
       "id": "example",
       "index": {
-        "physical_type": "positional_index",
-        "structure": "skip_list",
-        "ordering": "docid_sorted",
-        "dictionary_type": "hash_table"
+        "structure": "inverted"
       },
       "analysis": {
         "character_filters": [
           {
-            "type": "punctuation",
+            "type": "ponctuation",
             "replace": " "
           }
         ],
@@ -36,12 +32,5 @@
         "type": "boolean"
       }
     }
-  ],
-  "evaluation": {
-    "metrics": [
-      "precision",
-      "recall",
-      "f1"
-    ]
-  }
+  ]
 }

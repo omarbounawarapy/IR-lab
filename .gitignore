@@ -24,8 +24,11 @@ dist-ssr
 *.sln
 *.sw?
 
-#datasets
-/datasets
+#datasets (raw/downloaded corpora regenerated via scripts/ are not checked in;
+#the toy dataset has no download step and is the framework's own fixture data)
+/datasets/*
+!/datasets/toy
+!/datasets/toy/**
 
 #pycache
 **/__pycache__/

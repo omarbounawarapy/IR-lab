@@ -37,7 +37,12 @@ class RPNParser :
         for mo in re.finditer(tok_regex, query):
             type = mo.lastgroup
             value = mo.group()
-            if type != 'SKIP':
+            if type == 'SKIP':
+                continue
+            if type == 'OP':
+                cls = self.fragment_class(value)
+                tokens.append(cls(type, value))
+            else:
                 tokens.append(Fragment(type, value))
         return tokens
 

@@ -29,6 +29,12 @@ class ASTTree:
         elif isinstance(node, TermNode):
             terms = " ".join(token.content for token in node.content)
             print(f'"{terms}"')
-    
+
+        elif isinstance(node, UnaryNode):
+            print(node.operator)
+
+            child_prefix = prefix + ("    " if is_last else "│   ")
+            ASTTree.print_node(node.operand, child_prefix, True)
+
         else:
             print(node)

@@ -1,6 +1,7 @@
 from .ast_tree import ASTTree
 from .nodes import *
 from ..rpn.rpn_stack import RPNStack
+from ..fragments import UnaryFramgent
 
 
 class ASTBuilder:
@@ -11,6 +12,15 @@ class ASTBuilder:
         for fragment in rpn:
             if fragment.type == "TERM":
                 node_stack.append(TermNode(fragment.content))
+
+            elif isinstance(fragment, UnaryFramgent):
+                operand = node_stack.pop()
+                node_stack.append(
+                    UnaryNode(
+                        fragment.content,
+                        operand,
+                    )
+                )
 
             elif fragment.type == "OP":
                 right = node_stack.pop()
@@ -27,13 +37,13 @@ class ASTBuilder:
         tree = ASTTree()
         tree.stack = node_stack
         return tree
-    
+
 
 
 if __name__ == "__main__" :
-    from ir_lab.test import Fixtures 
-  
-    
+    from ir_lab.test import Fixtures
+
+
     stack = Fixtures.rpn_analyzed_stack()
     builder  = ASTBuilder()
     tree = builder(stack)
@@ -41,5 +51,3 @@ if __name__ == "__main__" :
     print("built stack = ",tree.stack)
 
     tree.print_tree()
-
-

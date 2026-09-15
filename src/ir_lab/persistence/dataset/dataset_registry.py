@@ -63,8 +63,9 @@ def toy_loader():
     ]
 
     return Dataset(
-        corpus=docs, 
-        queries= queries,
+        id="toy",
+        corpus=docs,
+        querries= queries,
         qrels= qrels
     )
 
@@ -74,8 +75,7 @@ def cisi_loader():
     docs_path = "datasets/cisi/documents.json"
     queries_path = "datasets/cisi/queries.json"
     qrels_path = "datasets/cisi/qrels.json"
-    
-    qrels =  load(open(docs_path,"r"))
+
     docs = [
         Document(
             id = doc["id"],
@@ -108,7 +108,7 @@ def cisi_loader():
     return Dataset(
         id = "cisi",
         corpus= docs,
-        queries = queries,
+        querries = queries,
         qrels = qrels
     )
 

@@ -1,10 +1,10 @@
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from .ast.nodes import *
 
-class BaseEvaluator:
+class BaseEvaluator(ABC):
 
     def __init__(self, retriever):
-        self.retriever = retriever 
+        self.retriever = retriever
 
     def __call__(self,tree):
 
@@ -13,8 +13,7 @@ class BaseEvaluator:
     def evaluate(self, node):
 
         if isinstance(node, TermNode):
-            return node.content
-        
+            return self.evaluate_term(node.content)
 
         if isinstance(node, BinaryNode):
             left = self.evaluate(node.left)
@@ -25,7 +24,7 @@ class BaseEvaluator:
                 left,
                 right
             )
-        elif isinstance(node,UnaryNode): 
+        elif isinstance(node,UnaryNode):
             operand = self.evaluate(node.operand)
 
             return self.evaluate_unary(
@@ -38,11 +37,14 @@ class BaseEvaluator:
 
 
     @abstractmethod
+    def evaluate_term(self, content):
+        pass
+
+    @abstractmethod
     def evaluate_binary(self, operator, left, right):
-        pass 
+        pass
 
-    @abstractmethod 
-    def evaluate_unary(self,operator,operand) : 
-        pass 
-
+    @abstractmethod
+    def evaluate_unary(self,operator,operand) :
+        pass
 

@@ -7,10 +7,10 @@ from ir_lab.models.relevance import Qrel
 
 @dataclass
 class Dataset:
-    def __init__(self,id : str , corpus:list[Document] , querries : list[Query],qrels : list[Qrel],meta:dict):
-        self.id = id 
+    def __init__(self,id : str , corpus:list[Document] , querries : list[Query],qrels : list[Qrel],meta:dict = None):
+        self.id = id
         self.corpus = corpus
         self.queries = querries
         self.qrels = qrels
-        self.meta = meta
+        self.meta = meta if meta is not None else {}
 

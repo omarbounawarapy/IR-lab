@@ -1,17 +1,15 @@
 from ir_lab.models.documents import ScoredDocument
+from ..base.base_mapper import BaseMapper
 
 
-class BooleanResultsMapper : 
+class BooleanResultsMapper(BaseMapper) :
     def __init__(self):
-        pass 
+        pass
 
     @staticmethod
-    def map_results(docs :list[int]) -> list[ScoredDocument] : 
+    def map_results(docs :list[int]) -> list[ScoredDocument] :
         results = []
-        for id in docs :
-            doc = ScoredDocument(id)
+        for position, id in enumerate(docs) :
+            doc = ScoredDocument(id, position=position)
             results.append(doc)
         return results
-
-    def __call__(self, docs : list[int]) -> list[ScoredDocument]:
-        return self.map_results(docs)

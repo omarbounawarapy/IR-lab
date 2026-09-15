@@ -10,8 +10,8 @@ class Posting:
 @dataclass
 class TermInfo:
     term: str
-    corpus_tf: int     
-    document_frequency: int 
+    corpus_tf: int
+    document_frequency: int
     idf: float | None = None
 
 
@@ -19,28 +19,32 @@ class TermInfo:
 class InvertedIndex(BaseIndex):
     def __init__(self):
         super().__init__()
-        self.vocabulary: dict[str, int]
-        self.postings: dict[int, list[Posting]] 
-        self.term_info: dict[int, TermInfo]
-        self.n_doc = 0
-        self.vocabulary = {}
-        self.postings = {}
-        self.term_info = {}
+        self.vocabulary: dict[str, int] = {}
+        self.postings: dict[str, list[Posting]] = {}
+        self.term_info: dict[int, TermInfo] = {}
+        self.doc_ids: set = set()
+
+    @property
+    def n_doc(self) -> int:
+        return len(self.doc_ids)
+
+    def document_ids(self) -> list:
+        return sorted(self.doc_ids)
 
     def get_postings(self,term):
         if term not in self.vocabulary:return []
         else :
             return self.postings[term]
 
-    def get_term_documents(self, term) -> set[str]:
+    def get_term_documents(self, term) -> list:
 
         return [posting.doc_id for posting in self.get_postings(term)]
-        
+
 
     def add_posting(self,term,doc_id,positions):
-        self.n_doc = max(self.n_doc,doc_id+1)
+        self.doc_ids.add(doc_id)
         if not super().in_vocabulary(term):
-            
+
             self.vocabulary[term] = len(self.vocabulary)
             self.postings[term] = []
             self.term_info[self.vocabulary[term]]= TermInfo(

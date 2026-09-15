@@ -3,6 +3,7 @@ from .base_mapper import BaseMapper
 from .base_parser import BaseParser
 from .base_retriever import BaseRetriver
 from .ast.ast_builder import ASTBuilder
+from .base_processor import BaseProcessor
 
 
 all = [
@@ -10,5 +11,6 @@ all = [
     "BaseMapper",
     "BaseParser",
     "BaseRetriver",
-    "ASTBuilder"
+    "ASTBuilder",
+    "BaseProcessor"
 ]

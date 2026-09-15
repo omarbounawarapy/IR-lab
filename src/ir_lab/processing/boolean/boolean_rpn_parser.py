@@ -4,18 +4,18 @@ from ..base.fragments import *
 class BooleanRPNParser(RPNParser):
     def __init__(self):
         self.operators = {
+            'not': {
+                "precedence" :3 ,
+                "class"  : UnaryFramgent
+            },
             'and': {
-                "precedence" :1 ,
-                "class"  : BinaryFragment 
+                "precedence" :2 ,
+                "class"  : BinaryFragment
             },
             'or':{
-                "precedence" :2 ,
-                "class"  : BinaryFragment 
-            },
-            'not': {
                 "precedence" :1 ,
-                "class"  : UnaryFramgent 
-            }
+                "class"  : BinaryFragment
+            },
         }
         self.token_specification = [
         ('OP',    r'\b(?:and|or|not)\b'),
