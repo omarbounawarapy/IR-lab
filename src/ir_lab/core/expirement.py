@@ -7,4 +7,5 @@ from .run import Run
 class Expirement :
     dataset : Dataset
     runs : list[Run]
-    #evaluation : list[dict] : kept away for now
+    id : str | None = None
+    seed : int | None = None

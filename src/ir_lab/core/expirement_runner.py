@@ -2,8 +2,11 @@ from .expirement import Expirement
 from ir_lab.indexing.indexers.indexer_builder import IndexerBuilder
 from ir_lab.analyzing.analyzers import AnalyzerBuilder, DocumentAnalyzer
 from ir_lab.processing.processor_builder import ProcessorBuilder
+from ir_lab.evaluation.metrics import evaluate_run
 from ir_lab.errors import ConfigError
+from ir_lab.reproducibility import set_global_seed, DEFAULT_SEED
 from .run import Run
+from .run_record import build_run_record
 
 
 import hashlib
@@ -18,9 +21,10 @@ def _required(config, key, where):
 
 
 class ExpirimentRunner:
-    def __init__(self,dataset_store,index_store):
+    def __init__(self,dataset_store,index_store,run_store=None):
         self.dataset_store = dataset_store
         self.index_store = index_store
+        self.run_store = run_store
         self.indexer_builder = IndexerBuilder()
         self.analyzer_builder = AnalyzerBuilder()
         self.processor_builder = ProcessorBuilder()
@@ -49,9 +53,12 @@ class ExpirimentRunner:
                          indexer=indexer)
           runs.append(instance)
 
+        meta = config.get("meta", {})
         return Expirement(
             dataset= dataset ,
-            runs = runs
+            runs = runs,
+            id = meta.get("id"),
+            seed = config.get("seed"),
         )
 
 
@@ -87,6 +94,8 @@ class ExpirimentRunner:
         return self.analyzers[key]
 
     def run(self,expirement : Expirement) :
+        set_global_seed(expirement.seed if expirement.seed is not None else DEFAULT_SEED)
+
         results = {}
         for run in expirement.runs:
             if run.index is None :
@@ -102,7 +111,25 @@ class ExpirimentRunner:
 
             processor = self.processor_builder(run.config["retrieval"], run.analyzer, run.index)
             run.processors = [processor]
-            results[run.id] = processor(expirement.dataset.queries)
+            run_results = processor(expirement.dataset.queries)
+            results[run.id] = run_results
+
+            if self.run_store is not None:
+                evaluation = None
+                if expirement.dataset.qrels:
+                    evaluation = evaluate_run(expirement.dataset.queries, run_results, expirement.dataset.qrels)
+
+                record = build_run_record(
+                    experiment_id=expirement.id,
+                    run_config_id=run.id,
+                    run_config=run.config,
+                    dataset_id=expirement.dataset.id,
+                    queries=expirement.dataset.queries,
+                    run_results=run_results,
+                    seed=expirement.seed,
+                    evaluation=evaluation,
+                )
+                self.run_store.save(record)
 
         return results
 
