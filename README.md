@@ -5,81 +5,143 @@
 <h1 align="center">IR Lab</h1>
 
 <p align="center">
-  Experimental Information Retrieval Systems & Algorithms
+  A from-scratch Information Retrieval framework: indexing, Boolean and TF-IDF retrieval,
+  and research-grade evaluation -- built and tested against real IR test collections.
 </p>
 
-IR Lab is an educational and experimental Python package for studying information retrieval concepts through modular implementations. Compared with earlier toy-oriented versions, the current codebase is organized around a more explicit IR-style pipeline with separate packages for ingestion, analysis, indexing, retrieval, evaluation, and experiments.
+<p align="center">
+  <a href="https://github.com/omarbounawarapy/IR-lab/actions/workflows/tests.yml"><img src="https://github.com/omarbounawarapy/IR-lab/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License: Apache 2.0"></a>
+  <img src="https://img.shields.io/badge/python-3.12%2B-blue.svg" alt="Python 3.12+">
+</p>
 
-## Purpose
+IR Lab is an educational and experimental Python package for building and studying
+information retrieval systems from first principles. Rather than wrapping an existing
+search library, it implements the pipeline itself -- analysis, indexing, retrieval, and
+evaluation -- as small, independently testable components composed via declarative
+configuration.
 
-The project is intended for learning and prototyping:
+## Who this is for
 
-- core IR abstractions such as documents, datasets, queries, and retrievers
-- reusable text-analysis components such as tokenizers, filters, and analyzers
-- index and query-processing components that can be tested independently
-- experiment scaffolding for defining datasets and composing retrieval pipelines
+Anyone who wants to understand *how* a search engine works by building one: students,
+IR/ML engineers refreshing fundamentals, or contributors looking for a small, well-tested
+codebase to extend with new retrieval models or metrics.
 
-## Current Architecture
+## Key features
 
-The source tree is now organized into a small set of Python packages under src/ir_lab:
+- **Boolean retrieval** over a positional inverted index, with a real query-language
+  pipeline (tokenizer &rarr; AST builder &rarr; RPN evaluator).
+- **TF-IDF retrieval** as a second, structurally different retrieval model, enabling
+  controlled model-vs-model comparisons on the same dataset.
+- **Composable analysis pipeline**: character filters, tokenizers, and token filters,
+  assembled from declarative JSON configuration -- no code changes needed to vary an
+  experiment.
+- **Research-grade evaluation**: precision/recall/F1, MAP, MRR, and nDCG@k, computed
+  against real relevance judgments (qrels).
+- **Paired significance testing** (paired t-test over per-topic Average Precision) for
+  comparing two runs honestly, not just by point estimate.
+- **Reproducible experiment runs**: every run persists its full config, code version, and
+  per-query evaluation, so results can be reloaded and verified without re-running.
+- **Real test collections**: ships with loaders/parsers for CISI (1460 docs, 112 queries)
+  and Cranfield, plus a small toy dataset for fast iteration.
 
-- core/: experiment runner and component-builder utilities for composing IR components from configuration
-- analyzing/: tokenizers, filters, analyzers, and analysis-result types
-- indexing/: index abstractions and indexer implementations
-- ingestion/: loader abstractions for bringing documents into the pipeline
-- models/: documents, analyzed documents, queries, executable queries, datasets, experiments, and tokens
-- retrieval/: parsers and retriever scaffolding for query execution
-- evaluation/: evaluation package stubs for future metrics and benchmarking
+## Quick start
 
-## Project Structure
+Requires Python 3.12+.
+
+```bash
+git clone https://github.com/omarbounawarapy/IR-lab.git
+cd IR-lab
+pip install -e ".[dev]"
+pytest
+```
+
+## Usage examples
+
+### 1. Run the bundled toy experiment (Boolean vs. TF-IDF, same dataset)
+
+```bash
+python3 -c "
+import json
+from ir_lab.core import ExpirimentRunner
+from ir_lab.persistence.dataset.dataset_store import DatasetStore
+from ir_lab.persistence.index.index_store import IndexStore
+
+config = json.load(open('experiments/configs/toy_boolean_vs_tfidf.json'))
+runner = ExpirimentRunner(DatasetStore(), IndexStore())
+print(runner(config))
+"
+```
+
+### 2. Fetch a real test collection
+
+```bash
+python3 scripts/download_cisi.py   # downloads + verifies CISI into datasets/cisi/
+```
+
+### 3. Reproduce the capstone experiment
+
+A full hypothesis-driven research example -- does disabling punctuation filtering change
+TF-IDF effectiveness (MAP) on CISI? -- with a controlled comparison and paired
+significance test, entirely reproducible from persisted artifacts:
+
+```bash
+python3 scripts/run_capstone.py
+```
+
+See [`experiments/capstone/README.md`](experiments/capstone/README.md) for the full
+write-up, methodology, and result (t = 1.542, df = 111, p = 0.126 -- not significant).
+
+### 4. Compare two runs programmatically
+
+```python
+from ir_lab.core.comparison import compare_runs
+
+comparison = compare_runs(run_a_record, run_b_record, varying={"analysis"})
+```
+
+`compare_runs` raises a `ConfigError` if anything *other* than the declared `varying`
+dimension differs between the two runs, so an experiment can't silently compare apples to
+oranges.
+
+## Project structure
 
 ```text
 .
-├── experiments/               # experiment configuration and runner assets
-├── src/ir_lab/                # implementation modules
-│   ├── analyzing/             # analysis pipeline components
-│   ├── core/                  # experiment runner and component composition helpers
-│   ├── evaluation/            # evaluation scaffolding
-│   ├── indexing/              # index classes and indexers
-│   ├── ingestion/             # data-loading abstractions
-│   ├── models/                # document, query, dataset, and experiment models
-│   └── processing/             # parsers and retrievers
-└── README.md
+├── experiments/            # declarative experiment configs + the capstone write-up
+├── scripts/                 # dataset download/parse scripts, capstone runner
+├── src/ir_lab/
+│   ├── analyzing/            # character filters, tokenizers, token filters, analyzers
+│   ├── core/                 # experiment runner, component builder, run comparison
+│   ├── evaluation/           # precision/recall/F1, MAP/MRR/nDCG, significance testing
+│   ├── indexing/              # incidence matrix, inverted index, skip lists
+│   ├── models/                 # documents, queries, datasets, qrels, experiments
+│   ├── persistence/            # dataset/index/run stores and registries
+│   └── processing/             # Boolean (AST/RPN) and TF-IDF retrieval pipelines
+├── tests/                   # acceptance tests, one file per capability area
+└── datasets/                # toy dataset (checked in); CISI/Cranfield fetched via scripts/
 ```
 
-## What the Codebase Includes Today
+## Design philosophy
 
-The repository currently contains:
-
-- document and analyzed-document models
-- query and executable-query representations, including boolean AST and boolean RPN variants
-- analyzer pipelines with character filters, tokenizers, and token filters
-- dataset abstractions such as Dataset, DatasetConfig, and DatasetStore
-- experiment runner and component-builder scaffolding for assembling retrieval components
-- indexing and retrieval classes for boolean retrieval
-
-## How It Differs from Older Versions
-
-The project has moved beyond its earlier toy-style layout:
-
-- older versions focused on simple loaders and placeholder experiment scaffolding
-- the current version reorganizes the package around a more standard IR pipeline structure
-- analysis logic now lives in a dedicated analyzing package instead of the older processing-oriented layout
-- models, indexing, retrieval, and evaluation are separated into clearer abstractions
-
-## Design Philosophy
-
-The project favors:
-
-- modularity over monolithic implementations
-- extensibility for adding new models, analyzers, and retrieval components
-- experiment-driven development over premature optimization
+- Modularity over monolithic implementations -- every pipeline stage is independently
+  testable.
+- Experiments as configuration, not code: varying a dimension (dataset, analysis,
+  retrieval model) should never require touching framework internals.
+- Honesty over impressive-looking numbers: comparisons enforce controlled variables and
+  are backed by significance tests, not just point estimates.
 
 ## Roadmap
 
-Planned work includes:
+- Additional ranking models (e.g. BM25)
+- Expanded evaluation pipelines and benchmark comparisons
+- More end-to-end example experiments
 
-- query evaluation improvements
-- TF-IDF, BM25, and other ranking models
-- evaluation pipelines and benchmark comparisons
-- more complete examples and end-to-end experiments
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). Changes are tracked in
+[CHANGELOG.md](CHANGELOG.md).
+
+## License
+
+Apache License 2.0 -- see [LICENSE](LICENSE).
