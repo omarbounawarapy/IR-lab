@@ -6,7 +6,7 @@ from .ast.ast_builder import ASTBuilder
 from .base_processor import BaseProcessor
 
 
-all = [
+__all__ = [
     "BaseEvaluator",
     "BaseMapper",
     "BaseParser",

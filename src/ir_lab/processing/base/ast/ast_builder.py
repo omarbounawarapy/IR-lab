@@ -1,5 +1,5 @@
 from .ast_tree import ASTTree
-from .nodes import *
+from .nodes import BinaryNode, TermNode, UnaryNode
 from ..rpn.rpn_stack import RPNStack
 from ..fragments import UnaryFramgent
 

@@ -1,5 +1,4 @@
 from .token_filter import TokenFilter 
-from ir_lab.models.tokens import Token
 from ir_lab.test import Fixtures
 
 class LowerCaseTokenFilter(TokenFilter):

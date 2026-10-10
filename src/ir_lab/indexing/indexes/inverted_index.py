@@ -32,9 +32,9 @@ class InvertedIndex(BaseIndex):
         return sorted(self.doc_ids)
 
     def get_postings(self,term):
-        if term not in self.vocabulary:return []
-        else :
-            return self.postings[term]
+        if term not in self.vocabulary:
+            return []
+        return self.postings[term]
 
     def get_term_documents(self, term) -> list:
 

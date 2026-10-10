@@ -2,7 +2,6 @@
 config file, and every failure category (config / data / unsupported
 feature) is attributable from the error message alone.
 """
-import copy
 import json
 
 import pytest
