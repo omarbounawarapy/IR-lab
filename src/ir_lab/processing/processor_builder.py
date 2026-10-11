@@ -1,17 +1,16 @@
 from ir_lab.analyzing.analyzers import QueryAnalyzer
-from ir_lab.indexing.indexes import BaseIndex
 from ir_lab.errors import ConfigError
+from ir_lab.indexing.indexes import BaseIndex
 
-from .boolean.boolean_processor import BooleanProcessor
-from .boolean.boolean_rpn_parser import BooleanRPNParser
 from .boolean.boolean_ast_builder import BooleanAstBuilder
-from .boolean.boolean_retriever import BooleanRetriever
 from .boolean.boolean_evaluator import BooleanEvaluator
+from .boolean.boolean_processor import BooleanProcessor
 from .boolean.boolean_results_mapper import BooleanResultsMapper
-
+from .boolean.boolean_retriever import BooleanRetriever
+from .boolean.boolean_rpn_parser import BooleanRPNParser
 from .tfidf.tfidf_processor import TFIDFProcessor
-from .tfidf.tfidf_retriever import TFIDFRetriever
 from .tfidf.tfidf_results_mapper import TFIDFResultsMapper
+from .tfidf.tfidf_retriever import TFIDFRetriever
 
 
 def _build_boolean(config: dict, analyzer, index: BaseIndex) -> BooleanProcessor:

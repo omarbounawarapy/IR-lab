@@ -1,7 +1,7 @@
-from .analyzer import Analyzer
-from .analyzer_builder import AnalyzerBuilder
 from ir_lab.processing.base.rpn.rpn_stack import RPNStack
 
+from .analyzer import Analyzer
+from .analyzer_builder import AnalyzerBuilder
 
 
 class QueryAnalyzer:

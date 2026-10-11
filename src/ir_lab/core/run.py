@@ -1,9 +1,11 @@
 
 from dataclasses import dataclass
-from ir_lab.indexing.indexes import BaseIndex
-from ir_lab.indexing.indexers.base_indexer import BaseIndexer
-from ir_lab.analyzing.analyzers.analyzer import Analyzer
 from typing import Any
+
+from ir_lab.analyzing.analyzers.analyzer import Analyzer
+from ir_lab.indexing.indexers.base_indexer import BaseIndexer
+from ir_lab.indexing.indexes import BaseIndex
+
 
 @dataclass
 class Run:

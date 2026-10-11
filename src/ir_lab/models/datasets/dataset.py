@@ -1,13 +1,13 @@
 from dataclasses import dataclass
-from ir_lab.models.queries import Query
-from ir_lab.models.documents import Document
-from ir_lab.models.relevance import Qrel
 
+from ir_lab.models.documents import Document
+from ir_lab.models.queries import Query
+from ir_lab.models.relevance import Qrel
 
 
 @dataclass
 class Dataset:
-    def __init__(self,id : str , corpus:list[Document] , querries : list[Query],qrels : list[Qrel],meta:dict = None):
+    def __init__(self,id : str , corpus:list[Document] , querries : list[Query],qrels : list[Qrel],meta:dict | None = None):
         self.id = id
         self.corpus = corpus
         self.queries = querries

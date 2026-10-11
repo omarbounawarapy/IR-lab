@@ -1,5 +1,6 @@
-from .fragment import Fragment
 from dataclasses import dataclass
+
+from .fragment import Fragment
 
 
 @dataclass

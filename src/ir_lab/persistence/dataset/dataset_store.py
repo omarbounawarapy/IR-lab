@@ -1,6 +1,8 @@
-from .dataset_registry import DatasetRegistry
-from ir_lab.models.datasets import Dataset
 from ir_lab.errors import ConfigError
+from ir_lab.models.datasets import Dataset
+
+from .dataset_registry import DatasetRegistry
+
 
 class DatasetStore :
 

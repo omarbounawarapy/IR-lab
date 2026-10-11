@@ -1,5 +1,7 @@
 from ir_lab.models.documents import AnalyzedDocument
+
 from .analyzer import Analyzer
+
 
 class DocumentAnalyzer:
 

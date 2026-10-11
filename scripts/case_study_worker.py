@@ -75,7 +75,7 @@ def main():
             "indexing_only_s": (t1 - t0) - (t2 - t1),
             "run_record": record_summary,
         })
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001 - worker reports any failure to the parent
         result.update({
             "ok": False,
             "error_type": type(exc).__name__,

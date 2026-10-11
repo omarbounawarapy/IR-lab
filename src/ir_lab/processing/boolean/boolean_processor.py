@@ -1,13 +1,14 @@
-from ..base.base_processor import BaseProcessor
-from ir_lab.models.queries import Query
+from dataclasses import dataclass
+
 from ir_lab.models.documents import ScoredDocument
-from .boolean_rpn_parser import BooleanRPNParser
-from .boolean_retriever import BooleanRetriever
+from ir_lab.models.queries import Query
+
+from ..base.base_processor import BaseProcessor
 from .boolean_ast_builder import BooleanAstBuilder
 from .boolean_evaluator import BooleanEvaluator
 from .boolean_results_mapper import BooleanResultsMapper
-
-from dataclasses import dataclass
+from .boolean_retriever import BooleanRetriever
+from .boolean_rpn_parser import BooleanRPNParser
 
 
 @dataclass(slots=True)
@@ -30,8 +31,8 @@ class BooleanProcessor(BaseProcessor):
 
 
 if __name__ == '__main__':
-    from ir_lab.test.fixtures import Fixtures
     from ir_lab.analyzing.analyzers import QueryAnalyzer
+    from ir_lab.test.fixtures import Fixtures
 
     index = Fixtures.inverted_index()
     analyzer = Fixtures.analyzer()

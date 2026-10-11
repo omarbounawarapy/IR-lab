@@ -1,10 +1,7 @@
 from abc import ABC, abstractmethod
-from typing import TypeVar, Generic
-
-T = TypeVar("T")
 
 
-class Store(ABC, Generic[T]):
+class Store[T](ABC):
 
     @abstractmethod
     def load(self) -> T:

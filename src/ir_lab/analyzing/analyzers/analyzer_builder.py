@@ -1,10 +1,9 @@
-from .analyzer import Analyzer
-
-from ir_lab.analyzing.filters.token import LowerCaseTokenFilter
+from ir_lab.abastractions import ComponentBuilder
 from ir_lab.analyzing.filters.char import PonctuationCharFilter
+from ir_lab.analyzing.filters.token import LowerCaseTokenFilter
 from ir_lab.analyzing.tokenizers import SpaceTokenizer
 
-from ir_lab.abastractions import ComponentBuilder
+from .analyzer import Analyzer
 
 CHARACTER_FILTERS = {
     "ponctuation" : PonctuationCharFilter
@@ -21,7 +20,7 @@ TOKENIZERS= {
 }
 
 
-class AnalyzerBuilder():
+class AnalyzerBuilder:
 
     def __init__(self):
         pass 

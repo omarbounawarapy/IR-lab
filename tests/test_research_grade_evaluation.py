@@ -5,6 +5,7 @@ comes with a significance test attached.
 """
 import json
 import math
+from pathlib import Path
 
 import pytest
 
@@ -20,8 +21,8 @@ from ir_lab.evaluation.rank_metrics import (
     reciprocal_rank,
 )
 from ir_lab.evaluation.significance import paired_t_test
-from ir_lab.models.queries import Query
 from ir_lab.models.documents import ScoredDocument
+from ir_lab.models.queries import Query
 from ir_lab.persistence.dataset.dataset_store import DatasetStore
 from ir_lab.persistence.index.index_store import IndexStore
 from ir_lab.persistence.run.run_store import RunStore
@@ -102,7 +103,7 @@ def test_paired_t_test_zero_variance_nonzero_mean_is_infinite_t_zero_p():
 def test_boolean_vs_tfidf_comparison_carries_a_significance_test(tmp_path):
     run_store = RunStore(root=str(tmp_path))
     runner = ExpirimentRunner(DatasetStore(), IndexStore(), run_store=run_store)
-    config = json.load(open("experiments/configs/toy_boolean_vs_tfidf.json"))
+    config = json.loads(Path("experiments/configs/toy_boolean_vs_tfidf.json").read_text())
     runner(config)
 
     records = {run_store.load(rid)["run_config_id"]: run_store.load(rid) for rid in run_store.list()}

@@ -1,5 +1,6 @@
-from abc import ABC , abstractmethod
+from abc import ABC, abstractmethod
 from typing import Any
+
 from ir_lab.models.documents import ScoredDocument
 
 

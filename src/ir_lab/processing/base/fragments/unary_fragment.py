@@ -1,4 +1,4 @@
-from .fragment import Fragment 
+from .fragment import Fragment
 
 
 class UnaryFramgent(Fragment) : 

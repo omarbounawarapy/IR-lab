@@ -1,7 +1,6 @@
 import string
+
 from .char_filter import CharFilter
-
-
 
 
 class PonctuationCharFilter(CharFilter):

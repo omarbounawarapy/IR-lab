@@ -28,9 +28,8 @@ from __future__ import annotations
 import hashlib
 import sys
 from pathlib import Path
-from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
-
+from urllib.request import Request, urlopen
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -294,7 +293,7 @@ def main() -> int:
                 minimum_size=config["min_size"],
             )
 
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - any download failure is reported and exits 1
             print(f"\n[ERROR] {exc}", file=sys.stderr)
             return 1
 

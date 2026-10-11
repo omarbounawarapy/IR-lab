@@ -1,5 +1,7 @@
-from .document import Document
 from ir_lab.models.tokens import Token
+
+from .document import Document
+
 
 class AnalyzedDocument:
     def __init__(self,document : Document, tokens : list[Token]):
@@ -11,4 +13,4 @@ class AnalyzedDocument:
 
     
     def term_set(self):
-        return set([token.content for token in self.tokens])
+        return {token.content for token in self.tokens}

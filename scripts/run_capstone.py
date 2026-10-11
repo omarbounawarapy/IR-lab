@@ -27,8 +27,8 @@ def main():
     run_store = RunStore(root=str(CAPSTONE_DIR / "runs"))
     runner = ExpirimentRunner(DatasetStore(), IndexStore(), run_store=run_store)
 
-    with_filter = json.load(open(CAPSTONE_DIR / "cisi_tfidf_with_punctuation_filter.json"))
-    without_filter = json.load(open(CAPSTONE_DIR / "cisi_tfidf_without_punctuation_filter.json"))
+    with_filter = json.loads((CAPSTONE_DIR / "cisi_tfidf_with_punctuation_filter.json").read_text())
+    without_filter = json.loads((CAPSTONE_DIR / "cisi_tfidf_without_punctuation_filter.json").read_text())
 
     runner(with_filter)
     runner(without_filter)

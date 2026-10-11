@@ -55,8 +55,9 @@ def test_persisted_run_carries_its_own_evaluation(tmp_path):
 
 
 def test_missing_run_id_is_a_legible_data_error(tmp_path):
-    from ir_lab.errors import DataError
     import pytest
+
+    from ir_lab.errors import DataError
 
     run_store = RunStore(root=str(tmp_path))
     with pytest.raises(DataError):

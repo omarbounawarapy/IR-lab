@@ -1,5 +1,6 @@
-from .ast_node import ASTNode
 from dataclasses import dataclass
+
+from .ast_node import ASTNode
 
 
 @dataclass

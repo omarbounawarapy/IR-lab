@@ -13,8 +13,8 @@ from ir_lab.evaluation.metrics import (
     recall,
     relevant_documents,
 )
-from ir_lab.models.queries import Query
 from ir_lab.models.documents import ScoredDocument
+from ir_lab.models.queries import Query
 from ir_lab.persistence.dataset.dataset_store import DatasetStore
 
 

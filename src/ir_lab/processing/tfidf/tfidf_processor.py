@@ -1,10 +1,11 @@
 from dataclasses import dataclass
 
-from ..base.base_processor import BaseProcessor
-from ir_lab.models.queries import Query
 from ir_lab.models.documents import ScoredDocument
-from .tfidf_retriever import TFIDFRetriever
+from ir_lab.models.queries import Query
+
+from ..base.base_processor import BaseProcessor
 from .tfidf_results_mapper import TFIDFResultsMapper
+from .tfidf_retriever import TFIDFRetriever
 
 
 @dataclass(slots=True)
@@ -27,9 +28,9 @@ class TFIDFProcessor(BaseProcessor):
 
 
 if __name__ == "__main__":
-    from ir_lab.test.fixtures import Fixtures
     from ir_lab.analyzing.analyzers import QueryAnalyzer
     from ir_lab.indexing.indexers.inverted_indexer import InvertedIndexer
+    from ir_lab.test.fixtures import Fixtures
 
     analyzer = Fixtures.analyzer()
     index = InvertedIndexer()(Fixtures.analyzed_documents())

@@ -1,14 +1,17 @@
 import json
 from functools import wraps
+from typing import ClassVar
+
+from ir_lab.errors import DataError
+from ir_lab.models.datasets import Dataset
 from ir_lab.models.documents import Document
 from ir_lab.models.queries import Query
 from ir_lab.models.relevance import Qrel
-from ir_lab.models.datasets import Dataset
-from ir_lab.errors import DataError
+
 
 class DatasetRegistry:
 
-    loaders = {}
+    loaders: ClassVar[dict] = {}
 
     @classmethod
     def register(cls, dataset):

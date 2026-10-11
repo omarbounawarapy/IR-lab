@@ -1,6 +1,7 @@
-from .inverted_indexer import InvertedIndexer
-from .incidence_matrix_indexer import IncidenceMatrixIndexer
 from ir_lab.errors import ConfigError
+
+from .incidence_matrix_indexer import IncidenceMatrixIndexer
+from .inverted_indexer import InvertedIndexer
 
 INDEXERS = {
     "inverted": InvertedIndexer,

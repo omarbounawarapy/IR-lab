@@ -1,6 +1,8 @@
-from ir_lab.models.documents import AnalyzedDocument
 from ir_lab.indexing.indexes import IncidenceMatrix
+from ir_lab.models.documents import AnalyzedDocument
+
 from .base_indexer import BaseIndexer
+
 
 class IncidenceMatrixIndexer(BaseIndexer):
 

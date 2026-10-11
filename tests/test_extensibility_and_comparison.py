@@ -24,8 +24,8 @@ def load_config():
 def test_tfidf_ranks_by_score_descending():
     from ir_lab.analyzing.analyzers import AnalyzerBuilder, DocumentAnalyzer
     from ir_lab.indexing.indexers.inverted_indexer import InvertedIndexer
-    from ir_lab.processing.processor_builder import ProcessorBuilder
     from ir_lab.models.queries import Query
+    from ir_lab.processing.processor_builder import ProcessorBuilder
 
     analyzer_config = {
         "character_filters": [{"type": "ponctuation", "replace": " "}],

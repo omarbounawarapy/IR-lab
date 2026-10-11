@@ -1,5 +1,7 @@
-from .token_filter import TokenFilter 
 from ir_lab.test import Fixtures
+
+from .token_filter import TokenFilter
+
 
 class LowerCaseTokenFilter(TokenFilter):
     def apply(self, token):

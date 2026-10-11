@@ -1,5 +1,6 @@
 from ..fragments.fragment import Fragment
 
+
 class RPNStack:
     def __init__(self):
         self.__stack: list[Fragment] = []

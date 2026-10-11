@@ -34,8 +34,7 @@ class Fixtures:
 
     @staticmethod
     def analyzed_documents():
-        from ir_lab.models.documents import Document
-        from ir_lab.models.documents import AnalyzedDocument
+        from ir_lab.models.documents import AnalyzedDocument, Document
         from ir_lab.models.tokens import Token
         return [
                     AnalyzedDocument(

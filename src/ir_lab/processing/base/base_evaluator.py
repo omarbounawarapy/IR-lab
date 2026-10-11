@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
+
 from .ast.nodes import BinaryNode, TermNode, UnaryNode
+
 
 class BaseEvaluator(ABC):
 

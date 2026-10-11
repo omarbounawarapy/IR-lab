@@ -1,4 +1,5 @@
-from abc import ABC,abstractmethod
+from abc import ABC, abstractmethod
+
 from ir_lab.models.tokens import Token
 
 

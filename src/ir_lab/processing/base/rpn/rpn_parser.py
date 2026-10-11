@@ -1,6 +1,8 @@
-from ..fragments.fragment import Fragment
 import re
+
+from ..fragments.fragment import Fragment
 from .rpn_stack import RPNStack
+
 
 class RPNParser : 
 

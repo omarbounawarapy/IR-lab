@@ -3,6 +3,7 @@ disk, produces a correct, independently-verifiable result through IR Lab's
 own code -- no fixtures standing in for ingestion, analysis or indexing.
 """
 import json
+from pathlib import Path
 
 import pytest
 
@@ -77,7 +78,7 @@ def test_combined_not_and_query(toy_processor):
 
 
 def test_config_driven_execution_matches_hand_computed_result():
-    config = json.load(open("experiments/configs/toy_inverted_index.json"))
+    config = json.loads(Path("experiments/configs/toy_inverted_index.json").read_text())
     runner = ExpirimentRunner(DatasetStore(), IndexStore())
     results = runner(config)
 
@@ -88,7 +89,7 @@ def test_config_driven_execution_matches_hand_computed_result():
 
 
 def test_repeated_runs_are_identical():
-    config = json.load(open("experiments/configs/toy_inverted_index.json"))
+    config = json.loads(Path("experiments/configs/toy_inverted_index.json").read_text())
     first = ExpirimentRunner(DatasetStore(), IndexStore())(config)
     second = ExpirimentRunner(DatasetStore(), IndexStore())(config)
 

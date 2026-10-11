@@ -1,4 +1,5 @@
 from ir_lab.models.documents import ScoredDocument
+
 from ..base.base_mapper import BaseMapper
 
 

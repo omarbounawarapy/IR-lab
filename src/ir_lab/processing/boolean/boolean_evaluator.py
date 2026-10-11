@@ -1,6 +1,8 @@
-from .boolean_retriever import BooleanRetriever
-from ..base.base_evaluator import BaseEvaluator
 from ir_lab.errors import UnsupportedFeatureError
+
+from ..base.base_evaluator import BaseEvaluator
+from .boolean_retriever import BooleanRetriever
+
 
 class BooleanEvaluator(BaseEvaluator) :
 
@@ -47,6 +49,7 @@ class BooleanEvaluator(BaseEvaluator) :
 
 if __name__ == "__main__" :
      from ir_lab.test import Fixtures
+
      from ..base.ast.ast_builder import ASTBuilder
 
      builder = ASTBuilder()

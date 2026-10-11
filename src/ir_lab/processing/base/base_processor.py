@@ -5,12 +5,12 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from ir_lab.analyzing.analyzers import QueryAnalyzer
 
-from ir_lab.models.queries import Query
-from ir_lab.models.documents import ScoredDocument
-
-from abc import ABC , abstractmethod
-
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
+
+from ir_lab.models.documents import ScoredDocument
+from ir_lab.models.queries import Query
+
 
 @dataclass
 class BaseProcessor(ABC) :     

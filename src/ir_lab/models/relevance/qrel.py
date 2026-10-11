@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 @dataclass
 class Qrel : 
   query_id : int 

@@ -1,5 +1,6 @@
-from .tokenizer import Tokenizer
 from ir_lab.models.tokens import Token
+
+from .tokenizer import Tokenizer
 
 
 class SpaceTokenizer(Tokenizer):

@@ -14,8 +14,8 @@ CAPSTONE_DIR = Path("experiments/capstone")
 
 
 def load_capstone_configs():
-    with_filter = json.load(open(CAPSTONE_DIR / "cisi_tfidf_with_punctuation_filter.json"))
-    without_filter = json.load(open(CAPSTONE_DIR / "cisi_tfidf_without_punctuation_filter.json"))
+    with_filter = json.loads((CAPSTONE_DIR / "cisi_tfidf_with_punctuation_filter.json").read_text())
+    without_filter = json.loads((CAPSTONE_DIR / "cisi_tfidf_without_punctuation_filter.json").read_text())
     return with_filter, without_filter
 
 
@@ -57,7 +57,7 @@ def test_checked_in_comparison_is_exactly_reproducible_from_persisted_runs():
         varying={"analysis"},
     )
 
-    checked_in = json.load(open(CAPSTONE_DIR / "comparison.json"))
+    checked_in = json.loads((CAPSTONE_DIR / "comparison.json").read_text())
 
     # run ids are freshly generated per execution and aren't part of the
     # scientific claim; everything else must match exactly.
@@ -66,7 +66,7 @@ def test_checked_in_comparison_is_exactly_reproducible_from_persisted_runs():
 
 
 def test_conclusion_is_backed_by_a_real_non_significant_p_value():
-    comparison = json.load(open(CAPSTONE_DIR / "comparison.json"))
+    comparison = json.loads((CAPSTONE_DIR / "comparison.json").read_text())
     # The written conclusion claims the MAP difference is not
     # significant at the conventional threshold -- verify the number
     # backing that claim is actually what's checked in, not asserted.

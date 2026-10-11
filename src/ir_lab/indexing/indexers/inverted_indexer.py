@@ -1,6 +1,8 @@
-from .base_indexer import BaseIndexer
-from ir_lab.models.documents import AnalyzedDocument
 from ir_lab.indexing.indexes import InvertedIndex
+from ir_lab.models.documents import AnalyzedDocument
+
+from .base_indexer import BaseIndexer
+
 
 class InvertedIndexer(BaseIndexer):
     def index(self,docs:list[AnalyzedDocument]) -> InvertedIndex:
@@ -15,11 +17,11 @@ class InvertedIndexer(BaseIndexer):
                     positions[term].append(position)
                 else : 
                     positions[term] = [position]
-            for term in positions:
+            for term, term_positions in positions.items():
                 terms.append(
                     (term,
                     doc_id,
-                    positions[term])
+                    term_positions)
                 )
 
         terms = sorted(terms)

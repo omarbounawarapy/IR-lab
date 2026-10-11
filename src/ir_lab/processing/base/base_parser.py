@@ -1,6 +1,7 @@
-from  ir_lab.models.queries import Query
-from ir_lab.models.queries  import ExecutableQuery 
-from abc import abstractmethod,ABC
+from abc import ABC, abstractmethod
+
+from ir_lab.models.queries import ExecutableQuery, Query
+
 
 class BaseParser(ABC):
     @abstractmethod

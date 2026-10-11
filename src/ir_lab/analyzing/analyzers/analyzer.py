@@ -1,5 +1,6 @@
 from .analysis_result import AnalysisResult
 
+
 class Analyzer:
     def __init__(self,config):
 

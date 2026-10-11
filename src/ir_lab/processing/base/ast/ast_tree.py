@@ -1,5 +1,6 @@
 from .nodes import ASTNode, BinaryNode, TermNode, UnaryNode
 
+
 class ASTTree:
     def __init__(self):
         self.stack = []

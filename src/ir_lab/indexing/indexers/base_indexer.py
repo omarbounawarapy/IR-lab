@@ -1,6 +1,8 @@
-from abc import abstractmethod,ABC
+from abc import ABC, abstractmethod
+
 from ir_lab.indexing.indexes import BaseIndex
 from ir_lab.models.documents import AnalyzedDocument
+
 
 class BaseIndexer(ABC) : 
     def __init__(self):

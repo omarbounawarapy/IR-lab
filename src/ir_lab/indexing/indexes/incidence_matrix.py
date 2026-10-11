@@ -1,4 +1,6 @@
 from .base_index import BaseIndex
+
+
 class IncidenceMatrix(BaseIndex):
 
     def __init__(self,size):

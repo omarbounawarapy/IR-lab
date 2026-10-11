@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from ir_lab.provenance import get_code_version
 
@@ -23,7 +23,7 @@ def build_run_record(
         "run_id": uuid.uuid4().hex,
         "experiment_id": experiment_id,
         "run_config_id": run_config_id,
-        "created_at": datetime.now(timezone.utc).isoformat(),
+        "created_at": datetime.now(UTC).isoformat(),
         "code_version": get_code_version(),
         "seed": seed,
         "dataset_id": dataset_id,

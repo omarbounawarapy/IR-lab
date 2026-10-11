@@ -1,5 +1,7 @@
-from .base_index import BaseIndex
 from dataclasses import dataclass
+
+from .base_index import BaseIndex
+
 
 @dataclass
 class Posting:

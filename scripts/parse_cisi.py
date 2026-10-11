@@ -36,7 +36,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-
 DATASET_DIR = Path("datasets/cisi")
 
 CISI_ALL = DATASET_DIR / "CISI.ALL"

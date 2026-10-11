@@ -21,6 +21,7 @@ def get_code_version() -> str:
 
     dirty = subprocess.run(
         ["git", "diff", "--quiet", "HEAD"],
+        check=False,
     ).returncode != 0
 
     return f"{sha}-dirty" if dirty else sha
